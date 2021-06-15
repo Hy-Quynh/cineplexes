@@ -121,7 +121,17 @@
     </header>
     <!-- ==========Header-Section========== -->
 
-    
+    <!-- ==========Banner-Section========== -->
+    <section class="banner-section">
+        <div class="banner-bg bg_img bg-fixed" data-background="../../assets/images/banner/banner02.jpg"></div>
+        <div class="container">
+            <div class="banner-content">
+                <h1 class="title bold">get <span class="color-theme">movie</span> tickets</h1>
+                <p>Buy movie tickets in advance, find movie times watch trailers, read movie reviews and much more</p>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Banner-Section========== -->
     <!-- ==========Ticket-Search========== -->
 
     <!-- ==========Ticket-Search========== -->
@@ -218,21 +228,116 @@
             </div>
         </div>
     </section>
-    <!-- ==========Banner-Section========== -->
-    <section class="banner-section">
-        <div class="banner-bg bg_img bg-fixed" data-background="../../assets/images/banner/banner02.jpg"></div>
-        <div class="container">
-            <div class="banner-content">
-                <h1 class="title bold">get <span class="color-theme">movie</span> tickets</h1>
-                <p>Buy movie tickets in advance, find movie times watch trailers, read movie reviews and much more</p>
-            </div>
-        </div>
-    </section>
-    <!-- ==========Banner-Section========== -->
     <!-- ==========Ticket-Search========== -->
 
     <!-- ==========Movie-Section========== -->
-    
+    <% if(typeof status != 'undefined'){ %>
+      <% if(status == 'Cineplex') { %>
+        <section class="movie-section padding-top padding-bottom">
+          <!-- <div class="container"> -->
+              <div class="row flex-wrap-reverse justify-content-center">
+                  <div class="col-lg-9 mb-50 mb-lg-0">
+                      <div class="filter-tab tab">
+                          <div class="filter-area">
+                              <div class="filter-main">
+                                  <div class="left">
+                                      <div class="item">
+                                          <span class="show"></span>
+                                      </div>
+                                  </div>
+                                  <ul class="grid-button tab-menu">
+                                      <li class="active">
+                                          <i class="fas fa-th"></i>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="tab-area">
+                            <div class="tab-item active">
+                                <div class="movie-area mb-10">
+                                  <% if(showtimeSearched.length == 0){ %>
+                                    <h4>Sorry there is no showtime on this day.</h4>
+                                  <% } else { %>
+                                    <% showtimeSearched.forEach((value) => { %>
+                                    <div class="movie-list">
+                                        <div class="movie-thumb c-thumb">
+                                            <a href="/movies/detail-movie/<%= value._movieID %>" class="w-100 bg_img h-100">
+                                                <img src="<%= value.poster %>" alt="movie">
+                                            </a>
+                                        </div>
+                                        <div class="movie-content bg-one">
+                                            <h5 class="title">
+                                                <a href="movie-details.html"><%= value.movieName %></a>
+                                            </h5>
+                                            <p class="duration"><i class="far fa-clock"></i><%= value.runningTime %> minute</p>
+                                            <div class="movie-tags">
+                                                <a href="#0"><%= value.genre %></a>
+                                            </div>
+                                            <div class="release">
+                                                <span>Release Date :</span> <a href="#0"><%= value.openingDay %></a>
+                                            </div>
+                                            <ul class="movie-rating-percent">
+                                                <li>
+                                                    <div class="thumb">
+                                                        <img src="../../assets/images/movie/cake.png" alt="movie">
+                                                    </div>
+                                                    <span class="content"><%= value.startTime %> ~ <%= value.endTime %></span>
+                                                </li>
+                                                <li>
+                                                    <div class="thumb">
+                                                      <i class="fas fa-film"></i>
+                                                    </div>
+                                                    <span class="content"><%= value.cinemaName %></span>
+                                                </li>
+                                            </ul>
+                                            <div class="book-area">
+                                                <div class="book-ticket">
+                                                    <div class="react-item">
+                                                        <a href="#0">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/heart.png" alt="icons">
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item mr-auto">
+                                                        <a href="/movies/detail-movie/<%= value._movieID %>">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/book.png" alt="icons">
+                                                            </div>
+                                                            <span>book ticket</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item">
+                                                        <a href="<%= value.trailer %>" class="video-popup">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/play-button.png" alt="icons">
+                                                            </div>
+                                                            <span>watch trailer</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <% }); %>
+                                  <% } %>
+                                </div>
+                            </div>
+                          </div>
+                          <!-- <div class="pagination-area text-center">
+                              <a href="#0"><i class="fas fa-angle-double-left"></i><span>Prev</span></a>
+                              <a href="#0" class="active">1</a>
+                              <a href="#0">2</a>
+                              <a href="#0">3</a>
+                              <a href="#0">4</a>
+                              <a href="#0">5</a>
+                              <a href="#0"><span>Next</span><i class="fas fa-angle-double-right"></i></a>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+          <!-- </div> -->
+        </section>
       <% } else if(status == 'Cinema') { %>
         <section class="movie-section padding-top padding-bottom">
             <div class="row flex-wrap-reverse justify-content-center">
@@ -427,113 +532,6 @@
                     </ul>
                 </div>
             </div>
-            <% if(typeof status != 'undefined'){ %>
-                <% if(status == 'Cineplex') { %>
-                  <section class="movie-section padding-top padding-bottom">
-                    <!-- <div class="container"> -->
-                        <div class="row flex-wrap-reverse justify-content-center">
-                            <div class="col-lg-9 mb-50 mb-lg-0">
-                                <div class="filter-tab tab">
-                                    <div class="filter-area">
-                                        <div class="filter-main">
-                                            <div class="left">
-                                                <div class="item">
-                                                    <span class="show"></span>
-                                                </div>
-                                            </div>
-                                            <ul class="grid-button tab-menu">
-                                                <li class="active">
-                                                    <i class="fas fa-th"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="tab-area">
-                                      <div class="tab-item active">
-                                          <div class="movie-area mb-10">
-                                            <% if(showtimeSearched.length == 0){ %>
-                                              <h4>Sorry there is no showtime on this day.</h4>
-                                            <% } else { %>
-                                              <% showtimeSearched.forEach((value) => { %>
-                                              <div class="movie-list">
-                                                  <div class="movie-thumb c-thumb">
-                                                      <a href="/movies/detail-movie/<%= value._movieID %>" class="w-100 bg_img h-100">
-                                                          <img src="<%= value.poster %>" alt="movie">
-                                                      </a>
-                                                  </div>
-                                                  <div class="movie-content bg-one">
-                                                      <h5 class="title">
-                                                          <a href="movie-details.html"><%= value.movieName %></a>
-                                                      </h5>
-                                                      <p class="duration"><i class="far fa-clock"></i><%= value.runningTime %> minute</p>
-                                                      <div class="movie-tags">
-                                                          <a href="#0"><%= value.genre %></a>
-                                                      </div>
-                                                      <div class="release">
-                                                          <span>Release Date :</span> <a href="#0"><%= value.openingDay %></a>
-                                                      </div>
-                                                      <ul class="movie-rating-percent">
-                                                          <li>
-                                                              <div class="thumb">
-                                                                  <img src="../../assets/images/movie/cake.png" alt="movie">
-                                                              </div>
-                                                              <span class="content"><%= value.startTime %> ~ <%= value.endTime %></span>
-                                                          </li>
-                                                          <li>
-                                                              <div class="thumb">
-                                                                <i class="fas fa-film"></i>
-                                                              </div>
-                                                              <span class="content"><%= value.cinemaName %></span>
-                                                          </li>
-                                                      </ul>
-                                                      <div class="book-area">
-                                                          <div class="book-ticket">
-                                                              <div class="react-item">
-                                                                  <a href="#0">
-                                                                      <div class="thumb">
-                                                                          <img src="../../assets/images/icons/heart.png" alt="icons">
-                                                                      </div>
-                                                                  </a>
-                                                              </div>
-                                                              <div class="react-item mr-auto">
-                                                                  <a href="/movies/detail-movie/<%= value._movieID %>">
-                                                                      <div class="thumb">
-                                                                          <img src="../../assets/images/icons/book.png" alt="icons">
-                                                                      </div>
-                                                                      <span>book ticket</span>
-                                                                  </a>
-                                                              </div>
-                                                              <div class="react-item">
-                                                                  <a href="<%= value.trailer %>" class="video-popup">
-                                                                      <div class="thumb">
-                                                                          <img src="../../assets/images/icons/play-button.png" alt="icons">
-                                                                      </div>
-                                                                      <span>watch trailer</span>
-                                                                  </a>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                            <% }); %>
-                                            <% } %>
-                                          </div>
-                                      </div>
-                                    </div>
-                                    <!-- <div class="pagination-area text-center">
-                                        <a href="#0"><i class="fas fa-angle-double-left"></i><span>Prev</span></a>
-                                        <a href="#0" class="active">1</a>
-                                        <a href="#0">2</a>
-                                        <a href="#0">3</a>
-                                        <a href="#0">4</a>
-                                        <a href="#0">5</a>
-                                        <a href="#0"><span>Next</span><i class="fas fa-angle-double-right"></i></a>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    <!-- </div> -->
-                  </section>
         </div>
     </footer>
     <!-- ==========Newslater-Section========== -->

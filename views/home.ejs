@@ -200,6 +200,25 @@
                             <input type="text" name="keyword" placeholder="Search for Showtimes">
                             <button type="submit"><i class="fas fa-search"></i></button>
                         </div>
+                          <!-- <div class="form-group large cinema">
+                              <input type="text" placeholder="Search for Showtimes">
+                              <button type="submit"><i class="fas fa-search"></i></button>
+                          </div> -->
+                          <!-- <div class="form-group">
+                              <div class="thumb">
+                                  <img src="./assets/images/ticket/cinema.png" alt="ticket">
+                              </div>
+                              <span class="type">event</span>
+                              <select class="select-bar">
+                                  <option value="angular">angular</option>
+                                  <option value="startup">startup</option>
+                                  <option value="rosario">rosario</option>
+                                  <option value="madrid">madrid</option>
+                                  <option value="koltaka">kolkata</option>
+                                  <option value="Last-First">Last-First</option>
+                                  <option value="wish">wish</option>
+                              </select>
+                          </div> -->
                       </form>
                   </div>
                   <div class="tab-item">
@@ -217,7 +236,53 @@
     <!-- ==========Ticket-Search========== -->
 
     <!-- ==========Movie-Section========== -->
-    
+    <section class="movie-section padding-top padding-bottom">
+        <div class="container">
+            <div class="tab">
+                <div class="section-header-2">
+                    <div class="left">
+                        <h2 class="title">most views</h2>
+                        <p>Be sure not to miss the most watched movies.</p>
+                    </div>
+                    <ul class="tab-menu">
+                        <li class="active">
+                            Most viewed movies
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-area mb-30-none">
+                    <div class="tab-item active">
+                        <div class="owl-carousel owl-theme tab-slider">
+                          <% mostViewMovies.forEach((value) => { %>
+                            <div class="item">
+                                <div class="movie-grid">
+                                    <div class="movie-thumb c-thumb">
+                                        <a href="/movies/detail-movie/<%= value._movieID %>">
+                                            <img src="<%= value.poster %>" alt="movie">
+                                        </a>
+                                    </div>
+                                    <div class="movie-content bg-one">
+                                        <h6 class="title m-0">
+                                            <a href="/movies/detail-movie/<%= value._movieID %>"><%= value.movieName %></a>
+                                        </h6>
+                                        <ul class="movie-rating-percent">
+                                            <li>
+                                                <div class="thumb">
+                                                  <i class="fas fa-users"></i>
+                                                </div>
+                                                <span class="content"><%= value.countUser %></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                          <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- ==========Movie-Section========== -->
 
     <!-- ==========Event-Section========== -->
@@ -287,53 +352,6 @@
                                         <div class="movie-rating-percent">
                                             <span>Release Date: <%= value.openingDay %></span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                          <% }) %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="movie-section padding-top padding-bottom">
-        <div class="container">
-            <div class="tab">
-                <div class="section-header-2">
-                    <div class="left">
-                        <h2 class="title">most views</h2>
-                        <p>Be sure not to miss the most watched movies.</p>
-                    </div>
-                    <ul class="tab-menu">
-                        <li class="active">
-                            Most viewed movies
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-area mb-30-none">
-                    <div class="tab-item active">
-                        <div class="owl-carousel owl-theme tab-slider">
-                          <% mostViewMovies.forEach((value) => { %>
-                            <div class="item">
-                                <div class="movie-grid">
-                                    <div class="movie-thumb c-thumb">
-                                        <a href="/movies/detail-movie/<%= value._movieID %>">
-                                            <img src="<%= value.poster %>" alt="movie">
-                                        </a>
-                                    </div>
-                                    <div class="movie-content bg-one">
-                                        <h6 class="title m-0">
-                                            <a href="/movies/detail-movie/<%= value._movieID %>"><%= value.movieName %></a>
-                                        </h6>
-                                        <ul class="movie-rating-percent">
-                                            <li>
-                                                <div class="thumb">
-                                                  <i class="fas fa-users"></i>
-                                                </div>
-                                                <span class="content"><%= value.countUser %></span>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
