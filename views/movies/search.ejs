@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/animate.css">
+    <link rel="stylesheet" href="../../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../../assets/css/odometer.css">
+    <link rel="stylesheet" href="../../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon">
+
+    <title>Movies list</title>
+
+
+</head>
+
+<body>
+    <!-- ==========Preloader========== -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ==========Preloader========== -->
+    <!-- ==========Overlay========== -->
+    <div class="overlay"></div>
+    <a href="#0" class="scrollToTop">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- ==========Overlay========== -->
+
+    <!-- ==========Header-Section========== -->
+    <header class="header-section">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../assets/images/logo/logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                  <li>
+                      <a href="/">Home</a>
+                  </li>
+                  <li>
+                      <a href="/movies/now-showing" class="active">movies</a>
+                      <ul class="submenu">
+                        <li>
+                            <a href="/movies/now-showing">Now showing</a>
+                        </li>
+                        <li>
+                            <a href="/movies/coming-soon">Coming soon</a>
+                        </li>
+                        <li>
+                            <a href="/movies/most-view">Most view</a>
+                        </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="/events">events</a>
+                  </li>
+                  <li>
+                      <a href="/about-us">About Us</a>
+                  </li>
+                  <li>
+                      <a href="/contact">contact</a>
+                  </li>
+                  <% if(currentUser) {%>
+                    <li class="profile" >
+                      <div class="cast-item-profile">
+                        <div class="cast-thumb-profile">
+                          <a href="/user/profile">
+                            <img src="../../assets/images/cast/cast05.jpg" alt="cast">
+                          </a>
+                        </div>
+                      </div>
+                      <ul class="submenu">
+                        <li>
+                          <a href="#"><i class="fas fa-user" style="padding-bottom: 5px;"><span><%= currentUser.fullName %></span></i></a>
+                        </li>
+                        <li>
+                          <a href="#"><i class="fas fa-envelope-square" style="padding-bottom: 5px;" ><span><%= currentUser.email %></span></i></a>
+                        </li>
+                        <li>
+                          <a href="#"><i class="fas fa-mobile" style="padding-bottom: 5px;" ><span><%= currentUser.phoneNumber %></span></i></a>
+                        </li>
+                        <hr>
+                        <li>
+                          <a href="/user/sign-out"><i class="fas fa-sign-out-alt" style="color:#f1481f;"><span>Sign out</span></i></a>
+                        </li>
+                      </ul>
+                    </li>
+                  <% } else { %>
+                    <li class="header-button pr-0">
+                        <a href="/user/sign-in">join us</a>
+                    </li>
+                  <% } %>
+                </ul>
+                <div class="header-bar d-lg-none">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ==========Header-Section========== -->
+
+    <!-- ==========Banner-Section========== -->
+    <section class="banner-section">
+        <div class="banner-bg bg_img bg-fixed" data-background="../../assets/images/banner/banner02.jpg"></div>
+        <div class="container">
+            <div class="banner-content">
+                <h1 class="title bold">get <span class="color-theme">movie</span> tickets</h1>
+                <p>Buy movie tickets in advance, find movie times watch trailers, read movie reviews and much more</p>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Banner-Section========== -->
+
+    <!-- ==========Ticket-Search========== -->
+    <section class="search-ticket-section padding-top pt-lg-0">
+        <div class="container">
+            <div class="search-tab bg_img" data-background="../../assets/images/ticket/ticket-bg01.jpg">
+                <div class="row align-items-center mb--20">
+                    <div class="col-lg-6 mb-20">
+                        <div class="search-ticket-header">
+                            <h6 class="category">welcome to Boleto </h6>
+                            <h3 class="title">what are you looking for</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-20">
+                        <ul class="tab-menu ticket-tab-menu">
+                            <li class="active">
+                                <div class="tab-thumb">
+                                    <img src="../../assets/images/ticket/ticket-tab01.png" alt="ticket">
+                                </div>
+                                <span>movie</span>
+                            </li>
+                            <li>
+                                <div class="tab-thumb">
+                                    <img src="../../assets/images/ticket/ticket-tab02.png" alt="ticket">
+                                </div>
+                                <span>events</span>
+                            </li>
+                            <li>
+                                <div class="tab-thumb">
+                                    <img src="../../assets/images/ticket/ticket-tab03.png" alt="ticket">
+                                </div>
+                                <span>sports</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-area">
+                    <div class="tab-item active">
+                        <form class="ticket-search-form">
+                            <div class="form-group large">
+                                <input type="text" placeholder="Search fo Movies">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/city.png" alt="ticket">
+                                </div>
+                                <span class="type">city</span>
+                                <select class="select-bar">
+                                    <option value="london">London</option>
+                                    <option value="dhaka">dhaka</option>
+                                    <option value="rosario">rosario</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="koltaka">kolkata</option>
+                                    <option value="rome">rome</option>
+                                    <option value="khoksa">khoksa</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/date.png" alt="ticket">
+                                </div>
+                                <span class="type">date</span>
+                                <select class="select-bar">
+                                    <option value="26-12-19">23/10/2020</option>
+                                    <option value="26-12-19">24/10/2020</option>
+                                    <option value="26-12-19">25/10/2020</option>
+                                    <option value="26-12-19">26/10/2020</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/cinema.png" alt="ticket">
+                                </div>
+                                <span class="type">cinema</span>
+                                <select class="select-bar">
+                                    <option value="Awaken">Awaken</option>
+                                    <option value="dhaka">dhaka</option>
+                                    <option value="rosario">rosario</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="koltaka">kolkata</option>
+                                    <option value="rome">rome</option>
+                                    <option value="khoksa">khoksa</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-item">
+                        <form class="ticket-search-form">
+                            <div class="form-group large">
+                                <input type="text" placeholder="Search fo Events">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/city.png" alt="ticket">
+                                </div>
+                                <span class="type">city</span>
+                                <select class="select-bar">
+                                    <option value="london">London</option>
+                                    <option value="dhaka">dhaka</option>
+                                    <option value="rosario">rosario</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="koltaka">kolkata</option>
+                                    <option value="rome">rome</option>
+                                    <option value="khoksa">khoksa</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/date.png" alt="ticket">
+                                </div>
+                                <span class="type">date</span>
+                                <select class="select-bar">
+                                    <option value="26-12-19">23/10/2020</option>
+                                    <option value="26-12-19">24/10/2020</option>
+                                    <option value="26-12-19">25/10/2020</option>
+                                    <option value="26-12-19">26/10/2020</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/cinema.png" alt="ticket">
+                                </div>
+                                <span class="type">event</span>
+                                <select class="select-bar">
+                                    <option value="angular">angular</option>
+                                    <option value="startup">startup</option>
+                                    <option value="rosario">rosario</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="koltaka">kolkata</option>
+                                    <option value="Last-First">Last-First</option>
+                                    <option value="wish">wish</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-item">
+                        <form class="ticket-search-form">
+                            <div class="form-group large">
+                                <input type="text" placeholder="Search fo Sports">
+                                <button type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/city.png" alt="ticket">
+                                </div>
+                                <span class="type">city</span>
+                                <select class="select-bar">
+                                    <option value="london">London</option>
+                                    <option value="dhaka">dhaka</option>
+                                    <option value="rosario">rosario</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="koltaka">kolkata</option>
+                                    <option value="rome">rome</option>
+                                    <option value="khoksa">khoksa</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/date.png" alt="ticket">
+                                </div>
+                                <span class="type">date</span>
+                                <select class="select-bar">
+                                    <option value="26-12-19">23/10/2020</option>
+                                    <option value="26-12-19">24/10/2020</option>
+                                    <option value="26-12-19">25/10/2020</option>
+                                    <option value="26-12-19">26/10/2020</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="thumb">
+                                    <img src="../../assets/images/ticket/cinema.png" alt="ticket">
+                                </div>
+                                <span class="type">sports</span>
+                                <select class="select-bar">
+                                    <option value="football">football</option>
+                                    <option value="cricket">cricket</option>
+                                    <option value="cabadi">cabadi</option>
+                                    <option value="madrid">madrid</option>
+                                    <option value="gadon">gadon</option>
+                                    <option value="rome">rome</option>
+                                    <option value="khoksa">khoksa</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Ticket-Search========== -->
+
+    <!-- ==========Movie-Section========== -->
+    <% if(typeof status != 'undefined'){ %>
+      <% if(status == 'Cineplex') { %>
+        <section class="movie-section padding-top padding-bottom">
+          <!-- <div class="container"> -->
+              <div class="row flex-wrap-reverse justify-content-center">
+                  <div class="col-lg-9 mb-50 mb-lg-0">
+                      <div class="filter-tab tab">
+                          <div class="filter-area">
+                              <div class="filter-main">
+                                  <div class="left">
+                                      <div class="item">
+                                          <span class="show"></span>
+                                      </div>
+                                  </div>
+                                  <ul class="grid-button tab-menu">
+                                      <li class="active">
+                                          <i class="fas fa-th"></i>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="tab-area">
+                            <div class="tab-item active">
+                                <div class="movie-area mb-10">
+                                  <% showtimeSearched.forEach((value) => { %>
+                                    <div class="movie-list">
+                                        <div class="movie-thumb c-thumb">
+                                            <a href="/movies/detail-movie/<%= value._movieID %>" class="w-100 bg_img h-100">
+                                                <img src="<%= value.poster %>" alt="movie">
+                                            </a>
+                                        </div>
+                                        <div class="movie-content bg-one">
+                                            <h5 class="title">
+                                                <a href="movie-details.html"><%= value.movieName %></a>
+                                            </h5>
+                                            <p class="duration"><i class="far fa-clock"></i><%= value.runningTime %> minute</p>
+                                            <div class="movie-tags">
+                                                <a href="#0"><%= value.genre %></a>
+                                            </div>
+                                            <div class="release">
+                                                <span>Release Date :</span> <a href="#0"><%= value.openingDay %></a>
+                                            </div>
+                                            <ul class="movie-rating-percent">
+                                                <li>
+                                                    <div class="thumb">
+                                                        <img src="../../assets/images/movie/cake.png" alt="movie">
+                                                    </div>
+                                                    <span class="content"><%= value.startTime %> ~ <%= value.endTime %></span>
+                                                </li>
+                                                <li>
+                                                    <div class="thumb">
+                                                      <i class="fas fa-film"></i>
+                                                    </div>
+                                                    <span class="content"><%= value.cinemaName %></span>
+                                                </li>
+                                            </ul>
+                                            <div class="book-area">
+                                                <div class="book-ticket">
+                                                    <div class="react-item">
+                                                        <a href="#0">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/heart.png" alt="icons">
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item mr-auto">
+                                                        <a href="/movies/detail-movie/<%= value._movieID %>">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/book.png" alt="icons">
+                                                            </div>
+                                                            <span>book ticket</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="react-item">
+                                                        <a href="<%= value.trailer %>" class="video-popup">
+                                                            <div class="thumb">
+                                                                <img src="../../assets/images/icons/play-button.png" alt="icons">
+                                                            </div>
+                                                            <span>watch trailer</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  <% }); %>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="pagination-area text-center">
+                              <a href="#0"><i class="fas fa-angle-double-left"></i><span>Prev</span></a>
+                              <a href="#0" class="active">1</a>
+                              <a href="#0">2</a>
+                              <a href="#0">3</a>
+                              <a href="#0">4</a>
+                              <a href="#0">5</a>
+                              <a href="#0"><span>Next</span><i class="fas fa-angle-double-right"></i></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <!-- </div> -->
+      </section>
+      <% } else { %>
+        <section class="section-404 padding-top padding-bottom">
+            <div class="container">
+                <div class="thumb-404">
+                    <img src="../../assets/images/404.png" alt="404">
+                </div>
+                <h3 class="title">Oops.. looks like you got lost :( </h3>
+                <a href="/" class="custom-button">Back To Home <i class="flaticon-right"></i></a>
+            </div>
+        </section>
+      <% } %>
+    <% } else { %>
+      <section class="section-404 padding-top padding-bottom">
+          <div class="container">
+              <div class="thumb-404">
+                  <img src="../../assets/images/404.png" alt="404">
+              </div>
+              <h3 class="title">Oops.. looks like you got lost :( </h3>
+              <a href="/" class="custom-button">Back To Home <i class="flaticon-right"></i></a>
+          </div>
+      </section>
+    <% } %>
+    <!-- ==========Movie-Section========== -->
+
+    <!-- ==========Newslater-Section========== -->
+    <footer class="footer-section">
+        <div class="newslater-section padding-bottom">
+            <div class="container">
+                <div class="newslater-container bg_img" data-background="../../assets/images/newslater/newslater-bg01.jpg">
+                    <div class="newslater-wrapper">
+                        <h5 class="cate">Online Ticketing </h5>
+                        <h3 class="title">Thank for coming to us</h3>
+                        <form class="newslater-form">
+                            <input type="text" placeholder="Send Us Something">
+                            <button type="submit">Send</button>
+                        </form>
+                        <p>We respect your privacy, so we never share your info</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../assets/images/footer/footer-logo.png" alt="footer">
+                    </a>
+                </div>
+                <ul class="social-icons">
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-area">
+                    <div class="left">
+                        <p>Copyright © 2020.All Rights Reserved By <a href="#0">Online Ticketing</a></p>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a href="#0">About</a>
+                        </li>
+                        <li>
+                            <a href="#0">Terms Of Use</a>
+                        </li>
+                        <li>
+                            <a href="#0">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#0">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="#0">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ==========Newslater-Section========== -->
+
+    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="../../assets/js/plugins.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/isotope.pkgd.min.js"></script>
+    <script src="../../assets/js/magnific-popup.min.js"></script>
+    <script src="../../assets/js/owl.carousel.min.js"></script>
+    <script src="../../assets/js/wow.min.js"></script>
+    <script src="../../assets/js/countdown.min.js"></script>
+    <script src="../../assets/js/odometer.min.js"></script>
+    <script src="../../assets/js/viewport.jquery.js"></script>
+    <script src="../../assets/js/nice-select.js"></script>
+    <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>

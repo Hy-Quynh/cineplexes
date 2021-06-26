@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/animate.css">
+    <link rel="stylesheet" href="../../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../../assets/css/odometer.css">
+    <link rel="stylesheet" href="../../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon">
+
+    <title>Boleto  - Online Ticket Booking Website HTML Template</title>
+
+
+</head>
+
+<body>
+    <!-- ==========Preloader========== -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ==========Preloader========== -->
+    <!-- ==========Overlay========== -->
+    <div class="overlay"></div>
+    <a href="#0" class="scrollToTop">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- ==========Overlay========== -->
+
+    <!-- ==========Header-Section========== -->
+    <header class="header-section">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../assets/images/logo/logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                  <li>
+                      <a href="/">Home</a>
+                  </li>
+                  <li>
+                      <a href="/movies/now-showing">movies</a>
+                      <ul class="submenu">
+                        <li>
+                            <a href="/movies/now-showing">Now showing</a>
+                        </li>
+                        <li>
+                            <a href="/movies/coming-soon">Coming soon</a>
+                        </li>
+                        <li>
+                            <a href="/movies/most-view">Most view</a>
+                        </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="/events">events</a>
+                  </li>
+                  <li>
+                      <a href="/about-us">About Us</a>
+                  </li>
+                  <li>
+                      <a href="/contact">contact</a>
+                  </li>
+                  <% if(currentUser) {%>
+                    <li class="profile" >
+                      <div class="cast-item-profile">
+                        <div class="cast-thumb-profile">
+                          <a href="/user/profile">
+                            <img src="../../assets/images/cast/cast05.jpg" alt="cast">
+                          </a>
+                        </div>
+                      </div>
+                      <ul class="submenu">
+                        <li>
+                          <a href="#"><i class="fas fa-user" style="padding-bottom: 5px;"><span><%= currentUser.fullName %></span></i></a>
+                        </li>
+                        <li>
+                          <a href="#"><i class="fas fa-envelope-square" style="padding-bottom: 5px;" ><span><%= currentUser.email %></span></i></a>
+                        </li>
+                        <li>
+                          <a href="#"><i class="fas fa-mobile" style="padding-bottom: 5px;" ><span><%= currentUser.phoneNumber %></span></i></a>
+                        </li>
+                        <hr>
+                        <li>
+                          <a href="/user/sign-out"><i class="fas fa-sign-out-alt" style="color:#f1481f;"><span>Sign out</span></i></a>
+                        </li>
+                      </ul>
+                    </li>
+                  <% } else { %>
+                    <li class="header-button pr-0">
+                        <a href="/user/sign-in">join us</a>
+                    </li>
+                  <% } %>
+                </ul>
+                <div class="header-bar d-lg-none">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ==========Header-Section========== -->
+
+    <!-- ==========Banner-Section========== -->
+    <section class="speaker-banner bg_img" data-background="../../assets/images/banner/banner07.jpg">
+        <div class="container">
+            <div class="speaker-banner-content">
+                <h2 class="title">Profile</h2>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/user/profile">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Banner-Section========== -->
+
+    <!-- ==========Speaker-Single========== -->
+    <section class="speaker-single padding-top pt-lg-0">
+        <div class="container">
+            <div class="speaker-wrapper bg-six padding-top padding-bottom">
+                <div class="speaker-thumb">
+                    <img src="../../assets/images/speaker/speaker05.jpg" alt="speaker">
+                    <input type="file" id="upload" hidden/>
+                    <label for="upload">Upload photo</label>
+                </div>
+                <div class="speaker-content">
+                    <div class="author">
+                        <h2 class="title"><%= currentUser.fullName %> </h2>
+                        <div class="info">Information</div>
+                    </div>
+                    <div class="speak-con-wrapper">
+                        <div class="speak-con-area">
+                            <div class="item">
+                                <div class="item-thumb">
+                                    <img src="../../assets/images/event/icon/event-icon03.png" alt="event">
+                                </div>
+                                <div class="item-content">
+                                    <span class="up">Email:</span>
+                                    <a href="<%= currentUser.email %>"><%= currentUser.email %></a>
+                                </div>
+                            </div>
+                            <ul class="social-icons">
+                                <li>
+                                    <a href="#0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="speak-con-wrapper">
+                        <div class="speak-con-area">
+                            <div class="item">
+                                <div class="item-thumb">
+                                    <img src="../../assets/images/event/icon/event-icon03.png" alt="event">
+                                </div>
+                                <div class="item-content">
+                                    <span class="up">Phone number:</span>
+                                    <a href="#0"><%= currentUser.phoneNumber %></a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="item-thumb">
+                                    <img src="../../assets/images/event/icon/event-icon03.png" alt="event">
+                                </div>
+                                <div class="item-content">
+                                    <span class="up">Password:</span>
+                                    <a href="#0"><%= currentUser.email %></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Speaker-Single========== -->
+
+    <!-- ==========Movie-Section========== -->
+    <section class="movie-section padding-top padding-bottom">
+      <div class="section-header-3">
+          <span class="cate">booked tickets</span>
+          <h2 class="title">Review the details of booked tickets</h2>
+      </div>
+      <div class="row flex-wrap-reverse justify-content-center">
+          <div class="col-lg-9 mb-50 mb-lg-0">
+              <div class="filter-tab tab">
+                  <div class="filter-area">
+                      <div class="filter-main">
+                          <div class="left">
+                              <div class="item">
+                                  <span class="show">History</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="tab-area">
+                      <div class="tab-item active">
+                          <div class="movie-area mb-10">
+                            <% historyTicket.forEach((value) => { %>
+                              <div class="movie-list">
+                                  <div class="movie-thumb c-thumb">
+                                      <a href="movie-details.html" class="w-100 bg_img h-100"> <!--data-background="<%= value.poster %>" -->
+                                          <img src="<%= value.poster %>" alt="movie">
+                                      </a>
+                                  </div>
+                                  <div class="movie-content bg-one">
+                                      <h5 class="title">
+                                          <a href="movie-details.html"><%= value.movieName %></a>
+                                      </h5>
+                                      <p class="duration"><%= value.runningTime %></p>
+                                      <div class="movie-tags">
+                                          <a href="#0"><%= value.genre %></a>
+                                      </div>
+                                      <div class="release-history">
+                                          <span><i class="fas fa-history"></i></span>
+                                          <a href="#0"><%= value.createAt %></a>
+                                      </div>
+                                      <ul class="movie-rating-percent">
+                                          <li>
+                                              <div class="thumb">
+                                                Seat code:
+                                              </div>
+                                              <span class="content"><%= value.seatCode %></span>
+                                          </li>
+                                          <li>
+                                            <div class="thumb">
+                                              <img src="./assets/images/icons/heart.png" alt="icons"><span>Cineplex:</span>
+                                            </div>
+                                            <span class="content"><%= value.cineplexName %></span>
+                                          </li>
+                                          <li>
+                                            <div class="thumb">
+                                              <img src="../../assets/images/movie/cake.png" alt="movie"><span>Cinema:</span>
+                                            </div>
+                                            <span class="content"><%= value.cinemaName %></span>
+                                          </li>
+                                      </ul>
+                                      <div class="book-area">
+                                          <div class="book-ticket">
+                                              <div class="react-item">
+                                                  <a href="#0">
+                                                      <div class="thumb">
+                                                          <img src="../../assets/images/icons/heart.png" alt="icons">
+                                                      </div>
+                                                  </a>
+                                              </div>
+                                              <div class="react-item mr-auto">
+                                                  <a href="#0">
+                                                      <div class="thumb">
+                                                          <img src="../../assets/images/icons/book.png" alt="icons">
+                                                      </div>
+                                                      <span>book ticket</span>
+                                                  </a>
+                                              </div>
+                                              <div class="react-item">
+                                                  <a href="#0" class="popup-video">
+                                                      <div class="thumb">
+                                                          <img src="../../assets/images/icons/play-button.png" alt="icons">
+                                                      </div>
+                                                      <span>watch trailer</span>
+                                                  </a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            <% }) %>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="pagination-area text-center">
+                      <a href="#0"><i class="fas fa-angle-double-left"></i><span>Prev</span></a>
+                      <a href="#0">1</a>
+                      <a href="#0">2</a>
+                      <a href="#0" class="active">3</a>
+                      <a href="#0">4</a>
+                      <a href="#0">5</a>
+                      <a href="#0"><span>Next</span><i class="fas fa-angle-double-right"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+    <!-- ==========Movie-Section========== -->
+
+    <!-- ==========Newslater-Section========== -->
+    <footer class="footer-section">
+        <div class="newslater-section padding-bottom">
+            <div class="container">
+                <div class="newslater-container bg_img" data-background="../../assets/images/newslater/newslater-bg01.jpg">
+                    <div class="newslater-wrapper">
+                        <h5 class="cate">Online Ticketing </h5>
+                        <h3 class="title">Thank for coming to us</h3>
+                        <form class="newslater-form">
+                            <input type="text" placeholder="Send Us Something">
+                            <button type="submit">Send</button>
+                        </form>
+                        <p>We respect your privacy, so we never share your info</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../assets/images/footer/footer-logo.png" alt="footer">
+                    </a>
+                </div>
+                <ul class="social-icons">
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-area">
+                    <div class="left">
+                        <p>Copyright © 2020.All Rights Reserved By <a href="#0">Online Ticketing</a></p>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a href="#0">About</a>
+                        </li>
+                        <li>
+                            <a href="#0">Terms Of Use</a>
+                        </li>
+                        <li>
+                            <a href="#0">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#0">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="#0">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ==========Newslater-Section========== -->
+
+    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="../../assets/js/plugins.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/isotope.pkgd.min.js"></script>
+    <script src="../../assets/js/magnific-popup.min.js"></script>
+    <script src="../../assets/js/owl.carousel.min.js"></script>
+    <script src="../../assets/js/wow.min.js"></script>
+    <script src="../../assets/js/countdown.min.js"></script>
+    <script src="../../assets/js/odometer.min.js"></script>
+    <script src="../../assets/js/viewport.jquery.js"></script>
+    <script src="../../assets/js/nice-select.js"></script>
+    <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>
