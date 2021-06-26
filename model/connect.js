@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-module.exports = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/temp',{
+module.exports = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/MyMovies',{
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {}, //removed ssl

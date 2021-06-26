@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize');
 const db = require('./connect');
 
 module.exports = {
@@ -8,27 +8,3 @@ module.exports = {
     });
   }
 };
-
-// const Roles = db.define('roles', {
-//   roleID:{
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//   },
-//   roleName:{
-//     type: Sequelize.STRING
-//   },
-//   display:{
-//     type: Sequelize.STRING
-//   },
-//   description:{
-//     type: Sequelize.STRING
-//   }
-// });
-//
-// Roles.getAll = async function () {
-//   return Roles.findAll({
-//     raw:true
-//   });
-// };
-//
-// module.exports = Roles;

@@ -15,12 +15,12 @@ module.exports = {
       }
     });
   },
-  findByID: async (_userID) => {
+  findByID: async (userID) => {
     return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", "roleID" FROM users WHERE "_userID" = :id`, {
       type: QueryTypes.SELECT,
       plain: true,
       replacements: {
-        id:_userID
+        id:userID
       }
     });
   },
@@ -33,77 +33,19 @@ module.exports = {
     return db.query(`UPDATE users SET "password" = '${password}' WHERE "_userID" = '${userID}'`, {
       type: QueryTypes.UPDATE
     });
+  },
+  info: async (userID) => {
+    return db.query(`SELECT "_userID", email, "fullName", "phoneNumber", "roleID" FROM users WHERE "_userID" = :id`, {
+      type: QueryTypes.SELECT,
+      plain: true,
+      replacements: {
+        id:userID
+      }
+    });
+  },
+  historyTicketOfUser: async (userId) => {
+    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(b."createAt", 'DD/MM/YYYY HH24:MI') as "createAt", t."seatCode", cipx."cineplexName", c."cinemaName" FROM movies m JOIN booking b ON m."_movieID" = b."movieID" JOIN cinemas c ON b."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN ticket t ON b."_bookingID" = t."bookingID" WHERE  b."userID" = ${userId}`,{
+      type: QueryTypes.SELECT
+    });
   }
 };
-
-// const Users = db.define('users', {
-//   _userID:{
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//   },
-//   email:{
-//     type: Sequelize.STRING
-//   },
-//   password:{
-//     type: Sequelize.STRING
-//   },
-//   fullName:{
-//     type: Sequelize.STRING
-//   },
-//   phoneNumber:{
-//     type: Sequelize.STRING
-//   },
-//   roleID:{
-//     type: Sequelize.INTEGER
-//   }
-// }, {
-//     updatedAt: false,
-//     freezeTableName: true
-// });
-//
-// Users.belongsTo(Roles, {as: 'roles', foreignKey: 'roleID'});
-// Roles.hasMany(Users, {as: 'users', foreignKey: 'roleID'});
-//
-// Users.getAll = async function () {
-//   return Users.findAll({
-//     attributes:['_userID', 'email','password','fullName', 'phoneNumber', 'roleID'],
-//     include: [{
-//       model: Roles,
-//       as: 'roles',
-//       attributes: ['roleID', 'roleName', 'display']
-//     }],
-//     raw:true
-//   });
-// };
-//
-// Users.findByEmail = async function (email) {
-//   return Users.findOne({
-//     attributes:['_userID', 'email','password','fullName', 'phoneNumber'],
-//     where:{
-//       email,
-//     },
-//     include: [{
-//       model: Roles,
-//       as: 'roles',
-//       attributes: ['roleID', 'roleName', 'display']
-//     }]
-//   });
-// };
-//
-// Users.findByID = async function (_userID) {
-//   return Users.findByPk(_userID)
-// };
-//
-// Users.add = async function (newUser) {
-//   return Users.create({
-//     email: newUser.email,
-//     password: newUser.password,
-//     fullName: newUser.fullName,
-//     phoneNumber: newUser.phoneNumber,
-//     roleID: 2,
-//     createdAt: Date.now()
-//   });
-// };
-//
-//
-// module.exports = Users;

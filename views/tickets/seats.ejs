@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/animate.css">
+    <link rel="stylesheet" href="../../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../../assets/css/odometer.css">
+    <link rel="stylesheet" href="../../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon">
+
+    <title>Seats plan</title>
+
+
+</head>
+
+<body>
+    <!-- ==========Preloader========== -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ==========Preloader========== -->
+    <!-- ==========Overlay========== -->
+    <div class="overlay"></div>
+    <a href="#0" class="scrollToTop">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- ==========Overlay========== -->
+
+    <!-- ==========Banner-Section========== -->
+    <section class="details-banner hero-area bg_img seat-plan-banner" data-background="./../../assets/images/banner/banner04.jpg">
+        <div class="container">
+            <div class="details-banner-wrapper">
+                <div class="details-banner-content style-two">
+                  <h3 class="title" data-movieid="<%= info._movieID %>" id="movie"><%= info.movieName %></h3>
+                  <div class="tags">
+                      <a href="#0"><%= info.genre %></a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Banner-Section========== -->
+
+    <!-- ==========Page-Title========== -->
+    <section class="page-title bg-one">
+        <div class="container">
+            <div class="page-title-area">
+                <div class="item md-order-1">
+                    <a href="/ticket/booking/<%= info._movieID %> " class="custom-button back-button">
+                        <i class="flaticon-double-right-arrows-angles"></i>back
+                    </a>
+                </div>
+                <div class="item cineplex">
+                  <h5 class="title"><%= info.cineplexName %></h5>
+                  <p  data-cinemaid="<%= info._cinemaID %>" id="cinema"><%= info.cinemaName %></p>
+                </div>
+                <div class="item showtime">
+                  <h5 class="title">Ticket booking time</h5>
+                  <p data-showat="<%= info.showAt %>"><%= info.startTime %> ~ <%= info.endTime %> | <%= info.showAt %></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Page-Title========== -->
+
+    <!-- ==========Movie-Section========== -->
+    <div class="seat-plan-section padding-bottom padding-top">
+        <div class="container">
+            <div class="screen-area">
+                <h4 class="screen">screen</h4>
+                <div class="screen-thumb">
+                    <img src="./../../assets/images/movie/screen-thumb.png" alt="movie">
+                </div>
+                <h5 class="subtitle">silver plus</h5>
+                <div class="screen-wrapper">
+                    <ul class="seat-area">
+                      <% for (var i = 65; i <= 72; i++) {%>
+                        <li class="seat-line">
+                            <span><%= String.fromCharCode(i) %></span>
+                            <ul class="seat--area">
+                              <li class="front-seat">
+                                <ul>
+                                  <% for (var c1 = 1; c1 <= 4; c1++) { %>
+                                    <li class="single-seat seat-free" id="<%= String.fromCharCode(i) + c1 %>">
+                                        <img src="../../assets/images/movie/seat01-free.png" alt="seat">
+                                        <span class="sit-num"><%= String.fromCharCode(i) + c1 %></span>
+                                    </li>
+                                  <% } %>
+                                </ul>
+                              </li>
+                              <li class="front-seat">
+                                <ul>
+                                  <% for (var c2 = 5; c2 <= 12; c2++) { %>
+                                    <li class="single-seat seat-free" id="<%= String.fromCharCode(i) + c2 %>">
+                                        <img src="../../assets/images/movie/seat01-free.png" alt="seat">
+                                        <span class="sit-num"><%= String.fromCharCode(i) + c2 %></span>
+                                    </li>
+                                  <% } %>
+                                </ul>
+                              </li>
+                              <li class="front-seat">
+                                <ul>
+                                  <% for (var c3 = 13; c3 <= 16; c3++) { %>
+                                    <li class="single-seat seat-free" id="<%= String.fromCharCode(i) + c3 %>">
+                                        <img src="../../assets/images/movie/seat01-free.png" alt="seat">
+                                        <span class="sit-num"><%= String.fromCharCode(i) + c3 %></span>
+                                    </li>
+                                  <% } %>
+                                </ul>
+                              </li>
+                            </ul>
+                            <span><%= String.fromCharCode(i) %></span>
+                        </li>
+                      <% } %>
+                    </ul>
+                </div>
+                <h5 class="subtitle">silver plus</h5>
+            </div>
+            <div class="proceed-book bg_img" data-background="./../../assets/images/movie/movie-bg-proceed.jpg">
+                <div class="proceed-to-book">
+                    <div class="book-item">
+                        <span>You have Choosed Seat</span>
+                        <h3 class="title" id="seat-selected"></h3>
+                    </div>
+                    <div class="book-item">
+                        <span>total price</span>
+                        <h3 class="title" id="total">0 đ</h3>
+                    </div>
+                    <div class="book-item">
+                        <a class="custom-button">proceed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ==========Movie-Section========== -->
+
+    <!-- ==========Newslater-Section========== -->
+    <footer class="footer-section">
+        <div class="newslater-section padding-bottom">
+            <div class="container">
+                <div class="newslater-container bg_img" data-background="../../assets/images/newslater/newslater-bg01.jpg">
+                    <div class="newslater-wrapper">
+                        <h5 class="cate">Online Ticketing </h5>
+                        <h3 class="title">Thank for coming to us</h3>
+                        <form class="newslater-form">
+                            <input type="text" placeholder="Send Us Something">
+                            <button type="submit">Send</button>
+                        </form>
+                        <p>We respect your privacy, so we never share your info</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="logo">
+                    <a href="/">
+                        <img src="../../assets/images/footer/footer-logo.png" alt="footer">
+                    </a>
+                </div>
+                <ul class="social-icons">
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#0">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-area">
+                    <div class="left">
+                        <p>Copyright © 2020.All Rights Reserved By <a href="#0">Online Ticketing</a></p>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a href="#0">About</a>
+                        </li>
+                        <li>
+                            <a href="#0">Terms Of Use</a>
+                        </li>
+                        <li>
+                            <a href="#0">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#0">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="#0">Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ==========Newslater-Section========== -->
+
+    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="../../assets/js/plugins.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/isotope.pkgd.min.js"></script>
+    <script src="../../assets/js/magnific-popup.min.js"></script>
+    <script src="../../assets/js/owl.carousel.min.js"></script>
+    <script src="../../assets/js/wow.min.js"></script>
+    <script src="../../assets/js/countdown.min.js"></script>
+    <script src="../../assets/js/odometer.min.js"></script>
+    <script src="../../assets/js/viewport.jquery.js"></script>
+    <script src="../../assets/js/nice-select.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/contact.js"></script>
+    <script src="../../assets/js/seats.js"></script>
+</body>
+
+</html>

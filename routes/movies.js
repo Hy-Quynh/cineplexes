@@ -1,9 +1,16 @@
 const express =  require('express');
 const moviesController = require('../controllers/movies');
-const picture = require('../middlewares/picture');
 const router = express.Router();
 
-router.use('/movies/picture/:_movieID', picture);
 router.get('/', moviesController.GET_MOVIES);
-router.get('/detail-movie', moviesController.DETAIL_MOVIE);
+// Now showing
+router.get('/now-showing', moviesController.GET_NOW_SHOWING);
+// Comming soon
+router.get('/coming-soon', moviesController.GET_COMING_SOON);
+// Most view
+router.get('/most-view', moviesController.GET_MOST_VIEW);
+//Detail movie
+router.get('/detail-movie/:movieID', moviesController.DETAIL_MOVIE);
+//Search for movie
+router.post('/search', moviesController.SEARCH_FOR_MOVIES_BY_CINEPLEX);
 module.exports = router;

@@ -1,6 +1,6 @@
 module.exports = function ensureLoggedIn(req, res, next) {
-  if(req.user){
-      res.redirect('/auth/login');
+  if(!req.currentUser){
+      res.redirect('/user/sign-in');
   } else {
     next();
   }

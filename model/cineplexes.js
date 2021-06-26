@@ -2,53 +2,14 @@ const { Sequelize, QueryTypes } = require('sequelize');
 const db = require('./connect');
 
 module.exports = {
-  findAll: async () => {
+  getAll: async () => {
     return db.query('SELECT * FROM cineplexes', {
+      type: QueryTypes.SELECT
+    });
+  },
+  findAllCineplexOfShowtime: async (movieId) => {
+    return db.query(`SELECT DISTINCT cipx.* FROM showtime  st JOIN cinemas c ON c."_cinemaID" = st."cinemaID" JOIN movies m ON m."_movieID" = st."movieID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" WHERE st."movieID" = ${movieId}`, {
       type: QueryTypes.SELECT
     });
   }
 };
-
-
-
-
-
-
-
-
-
-
-// const Cineplexes = db.define('cineplexes', {
-//   _clusterID:{
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//   },
-//   clusterName:{
-//     type: Sequelize.STRING
-//   },
-//   address:{
-//     type: Sequelize.STRING
-//   }
-// });
-//
-// Cinemas.belongsTo(Cineplexes, {as: 'cineplexes', foreignKey: '_clusterID'});
-// Cineplexes.hasMany(Cinemas, {as: 'cinemas', foreignKey: 'clusterID'});
-//
-// Cineplexes.getAll = async function (_clusterID) {
-//   return Cineplexes.findAll({
-//     attributes:['_clusterID', 'clusterName', 'address'],
-//     where:{
-//       _clusterID,
-//     },
-//     include: [{
-//       model: Cinemas,
-//       as: 'cinemas',
-//       attributes: ['_cinemaID', 'cinemaName', 'cinemaType','horizontalSize','verticalSize']
-//       // order: [
-//       //   ['time', 'DESC'],
-//       // ]
-//     }]
-//   });
-// };
-
-// module.exports = Cineplexes;

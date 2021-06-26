@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const createError = require('http-errors');
 const cloudinary = require('cloudinary');
-const sendEmail = require('./send-mail')
+const SendEmail = require('./send-mail')
 const JWT = require('jsonwebtoken');
 const { google } = require('googleapis');
 const { OAuth2 } = google.auth;
@@ -13,11 +13,11 @@ const {
   GOOGLE_SECRET,
   CLIENT_URL,
   CLOUD_NAME,
-  ACTIVATION_TOKEN_SECRET,
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET
-
 } = process.env;
+
+const ACTIVATION_TOKEN_SECRET = '4cdc0a9270656190949496915ee533585d0971ab2a9648b76f82a373f59f152b27b588fc5087dc75d602b6f7797c663ec6656f82c884c5521f19ba3e7a7fc91d';
 
 const client = new OAuth2(MAILING_SERVICE_CLIENT_ID);
 const User = require('../model/users');
@@ -29,53 +29,48 @@ cloudinary.config({
 });
 
 module.exports = {
-  LOGIN: asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const found = await User.findByEmail(email);
-    if(!found) return res.status(400).json({ message: 'Email không tồn tại' });
-    const isMatch = await bcrypt.compareSync(password, found.password);
-    if(!isMatch) return res.status(400).json({ message: 'Mật khẩu không đúng'});
-    // req.session.userID = found._userID;
-    const accessToken = await signAccessToken(found._userID);
-    const refreshToken = await signRefreshToken(found);
-    const userResult = await User.findByID(found._userID);
-    res.send({
-      status: 'success',
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-      user: userResult
-    });
+  GET_SIGNIN: asyncHandler(async (req, res) => {
+    res.render('user/sign-in');
   }),
-  REGISTER: asyncHandler(async (req, res) => {
-    const { name, email, phoneNumber, password, repassword } = req.body;
+  SIGNIN: asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    // if(!email) return res.render('user/sign-in',{ emailError: 'Email is required' });
+    // if(!password) return res.render('user/sign-in',{ passwordError: 'Email is required' });
+    const found = await User.findByEmail(email);
+    if(!found) return res.status(400).json({ emailError: 'Email does not exist' });
+    const isMatch = await bcrypt.compareSync(password, found.password);
+    if(!isMatch) return res.status(400).json({ passwordError: 'Incorrect password' });
+    const info = await User.info(found._userID);
+    req.session.userID = found._userID;
+    res.send({status: 'success'});
+  }),
+  GET_SIGNUP: asyncHandler(async (req, res) => {
+    res.render('user/sign-up');
+  }),
+  SIGNUP: asyncHandler(async (req, res) => {
+    const { name, email, phoneNumber, password } = req.body;
     const doseExists = await User.findByEmail(email);
-    if(doseExists) return res.status(400).json({ message: 'Email này đã tồn tại' })
-    if(!password) return res.stauts(400).json({ message: 'Vui lòng điền mật khẩu' });
-    if(password !== repassword) return res.status(400).json({ message: 'Mật khẩu và mật khẩu nhập lại không khớp' });
+    if(doseExists) return res.status(400).json({ emailError: 'Email already exists' });
+    // if(password !== repassword) return res.status(400).json({ passwordError: 'Password and confirm password do not match' });
     const hash = bcrypt.hashSync(password, 10);
-    const url = `${CLIENT_URL}api/user/active-email/${accessToken}`;
-    sendEmail(email, url, "Click xác nhận địa chỉ email của bạn");
+    const newUser = { name, email, phoneNumber, password: hash };
+    const host = req.protocol + '://' + req.get('host');
+    const accessToken = createActivationToken(newUser);
+    const url = `${host}/user/active-email/${accessToken}`;
+    SendEmail.SEND_MAIL(email, url, "Click confirm your email address");
+    res.send({ status:'Successful, check email to verify!' });
   }),
   ACTIVE_EMAIL: asyncHandler(async (req, res) => {
-    const { accessToken } = req.body;
+    const { accessToken } = req.params;
     const user = JWT.verify(accessToken, ACTIVATION_TOKEN_SECRET);
-    const { name, email, phoneNumber, password} = user;
-    const checkEmail = await User.findByEmail(email);
-    if (checkEmail) return res.status(400).json({ message: 'Tài khoản này tồn tại' });
+    const { name, email, phoneNumber, password } = user;
     const result = await User.add(name, email, phoneNumber, password);
-    const token = await signAccessToken(result._userID);
-    res.status(200).json({
-      user: result,
-      token
-    })
+    res.redirect('/user/sign-in');
   }),
   PROFILE: asyncHandler(async (req, res) => {
-    // const id = req.data._userID;
-    const user = await User.findByID(1);
-    res.status(200).json({
-      status: 'success',
-      user: user
-    });
+    const { userID } = req.session;
+    const historyTicket = await User.historyTicketOfUser(userID);
+    res.render('user/profile', { historyTicket });
   }),
   CHANGE_PASSWORD: asyncHandler(async (req, res) => {
     const { _userID } = req.data;
@@ -100,28 +95,47 @@ module.exports = {
       refreshToken: refToken
     })
   },
+  GET_FORGOT_PASSWORD: async (req, res) => {
+    res.render('user/forgot-password');
+  },
   FORGOT_PASSWORD: async (req, res) => {
     const { email } = req.body
     const user = await User.findByEmail(email.toLowerCase().trim());
-    if (!user) return res.status(400).json({ message: "Email không tồn tại" });
+    if (!user) return res.status(400).json({ message: "Email does not exist" });
     const access_token = createAccessToken({ email: email });
+    const CLIENT_URL = req.protocol + '://' + req.get('host');
     const url = `${CLIENT_URL}/user/reset-password/${access_token}`
-    sendEmail(email, url, "Click Tạo Mật khẩu mới");
-    res.json({ message: "Tạo mật khẩu mới, Vui lòng kiểm tra email." })
+    SendEmail.FORGOT_PASSWORD_SEND_MAIL(email, url, user.fullName);
+    res.render('user/forgot-password',{
+      status: 'Confirm',
+      email
+    });
+  },
+  GET_RESET_PASSWORD: async (req, res) => {
+    const { access_token } = req.params;
+    res.render('user/forgot-password',{
+      status:'Reset',
+      access_token
+    });
   },
   RESET_PASSWORD: async (req, res) => {
-    const { password, accessToken } = req.body;
+    const { password, repassword, accessToken } = req.body;
+    if (!password) return res.status(400).json({ msg: "Please enter the password" });
+    if (password !== repassword) return res.status(400).json({ msg: "Password and re-entered password do not match" });
     const result = JWT.verify(accessToken, ACTIVATION_TOKEN_SECRET);
     const user = await User.findByEmail(result.email);
-    if (!password) return res.status(400).json({ msg: "Vui lòng nhập mật khẩu" });
-    if (!user) return res.status(400).json({ msg: "Tài khoản này không tồn tại" });
+    if (!user) return res.status(400).json({ msg: "Email does not exist" });
     const passwordHash = await bcrypt.hashSync(password, 10);
-    await User.findOneAndUpdate(result._userID, passwordHash);
-    const token = await signAccessToken(user._userID);
-    res.status(200).json({
-      user: user,
-      token
-    })
+    await User.findOneAndUpdate(user._userID, passwordHash);
+    res.render('user/forgot-password',{
+      status:'Successful',
+      message: 'Successful, you can login!'
+    });
+  },
+  SIGN_OUT: async (req, res) => {
+    const { userID } = req.session;
+    delete req.session.userID;
+    res.redirect('/');
   }
 };
 const createAccessToken = (payload) => {
