@@ -8,6 +8,9 @@ router.post('/sign-in', usersController.SIGNIN);
 // Sign up
 router.get('/sign-up', usersController.GET_SIGNUP);
 router.post('/sign-up', usersController.SIGNUP);
+//auth admin
+router.get('/admin/auth', usersController.GET_LOGIN_ADMIN);
+router.post('/admin/auth', usersController.LOGIN_ADMIN);
 // verify email
 router.get('/active-email/:accessToken', usersController.ACTIVE_EMAIL);
 // Forgot password

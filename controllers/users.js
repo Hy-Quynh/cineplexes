@@ -40,7 +40,7 @@ module.exports = {
     if(!found) return res.status(400).json({ emailError: 'Email does not exist' });
     const isMatch = await bcrypt.compareSync(password, found.password);
     if(!isMatch) return res.status(400).json({ passwordError: 'Incorrect password' });
-    const info = await User.info(found._userID);
+    // const info = await User.info(found._userID);
     req.session.userID = found._userID;
     res.send({status: 'success'});
   }),
@@ -59,6 +59,20 @@ module.exports = {
     const url = `${host}/user/active-email/${accessToken}`;
     SendEmail.SEND_MAIL(email, url, "Click confirm your email address");
     res.send({ status:'Successful, check email to verify!' });
+  }),
+  GET_LOGIN_ADMIN: asyncHandler(async (req, res) => {
+    res.render('admin/auth');
+  }),
+  LOGIN_ADMIN: asyncHandler(async (req, res) => {
+    const { username, password} = req.body;
+    const found = await User.findByEmail(username);
+    if(!found) return res.status(400).json({ emailError: 'Username does not exist' });
+    const isMatch = await bcrypt.compareSync(password, found.password);
+    if(!isMatch) return res.status(400).json({ passwordError: 'Incorrect password' });
+    if(found.roleID !== 1) return res.status(400).json({ emailError: 'This is not an admin account' });
+    // const info = await User.info(found._userID);
+    req.session.userID = found._userID;
+    res.redirect('/admin/dashboard');
   }),
   ACTIVE_EMAIL: asyncHandler(async (req, res) => {
     const { accessToken } = req.params;

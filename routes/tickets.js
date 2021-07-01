@@ -1,10 +1,10 @@
 const express =  require('express');
-const ensureLoggedIn = require('../middlewares/ensure-logged-in');
+const Logged = require('../middlewares/ensure-logged-in');
 const ticketsController = require('../controllers/tickets');
 const router = express.Router();
 
 // loggged
-router.use(ensureLoggedIn);
+router.use(Logged.ensureLoggedIn);
 
 // movie Booking
 router.get('/booking/:movieId', ticketsController.GET_BOOKING_MOVIE);

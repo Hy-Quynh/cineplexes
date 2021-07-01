@@ -7,7 +7,7 @@ module.exports = {
     return db.query('SELECT * FROM users', { type: QueryTypes.SELECT });
   },
   findByEmail: async (email) => {
-    return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", "roleID" FROM users WHERE email = :email`, {
+    return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", u."roleID", r."roleName" ,r.display FROM users u JOIN roles r ON u."roleID" = r."roleID" WHERE email = :email`, {
       type: QueryTypes.SELECT,
       plain: true,
       replacements: {
@@ -16,7 +16,7 @@ module.exports = {
     });
   },
   findByID: async (userID) => {
-    return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", "roleID" FROM users WHERE "_userID" = :id`, {
+    return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", u."roleID", r."roleName" ,r.display FROM users u JOIN roles r ON u."roleID" = r."roleID" WHERE "_userID" = :id`, {
       type: QueryTypes.SELECT,
       plain: true,
       replacements: {
@@ -35,7 +35,7 @@ module.exports = {
     });
   },
   info: async (userID) => {
-    return db.query(`SELECT "_userID", email, "fullName", "phoneNumber", "roleID" FROM users WHERE "_userID" = :id`, {
+    return db.query(`SELECT "_userID", email, "password", "fullName", "phoneNumber", u."roleID", r."roleName" ,r.display FROM users u JOIN roles r ON u."roleID" = r."roleID" WHERE "_userID" = :id`, {
       type: QueryTypes.SELECT,
       plain: true,
       replacements: {

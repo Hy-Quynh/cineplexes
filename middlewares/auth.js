@@ -7,8 +7,14 @@ module.exports = asyncHandler(async function auth(req, res, next) {
   if(userID){
       const user = await User.findByID(userID)
       if(user){
-        req.currentUser = user;
-        res.locals.currentUser = user;
+        if(user.roleID == 2){
+          req.currentUser = user;
+          res.locals.currentUser = user;
+        }
+        else if(user.roleID == 1){
+          req.admin = user;
+          res.locals.admin = user;
+        }
       }
       next();
   }
