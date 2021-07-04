@@ -2,11 +2,9 @@
     "use strict";
 
     jQuery(document).ready(function ($) {
-      let cinemaId;
       let movieId;
       $(document).on('click', '#delete', function (e) {
         e.preventDefault();
-        cinemaId = $(this).data('cinemaid');
         movieId = $(this).data('movieid');
         $('.window-warning').removeClass('inActive');
       });
@@ -14,14 +12,11 @@
       $(document).on('click', '.window-warning .warning-item .button button', function () {
         var selected = $(this).data('select');
         if(selected == 'agree'){
-          if(cinemaId && movieId){
+          if(movieId){
             $.ajax({
                 type: "POST",
-                url: '/admin/delete-showtime',
-                data: {
-                  cinemaId: cinemaId,
-                  movieId: movieId
-                },
+                url: '/admin/delete-movie',
+                data: { movieId: movieId },
                 success: function (data) {
                   if(data.status == 'success'){
                     $('.window-warning').addClass('inActive');

@@ -21436,3 +21436,23 @@ div.tagsinput {
   font-size: 15px;
   line-height: 100px;
 }
+
+.message {
+  color: #ff4343;
+  text-align: center;
+  font-size: 18px;
+  display: none;
+}
+.movie {
+  color: #ff4343;
+  text-align: center;
+  font-size: 18px;
+  display: none;
+}
+
+.message.active {
+  display: block;
+}
+.movie.active {
+  display: block;
+}

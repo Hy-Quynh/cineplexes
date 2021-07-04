@@ -11,6 +11,8 @@ router.use(Logged.ensureLoggedInAdmin);
 
 // Home
 router.get('/dashboard', adminController.HOME);
+router.post('/cineplexes-revenue', adminController.CINEPLEXES_REVENUE);
+router.post('/movies-revenue', adminController.MOVIES_REVENUE);
 // Cineplexes
 router.get('/cineplexes-list', adminController.GET_CINEPLEXES_LIST);
 router.get('/add-cineplex', adminController.GET_ADD_CINEPLEX);
@@ -25,6 +27,7 @@ router.post('/delete-cinema', adminController.DELETE_CINEMA);
 router.get('/movies-list', adminController.GET_MOVIES_LIST);
 router.get('/add-movie', adminController.GET_ADD_MOVIE);
 router.post('/add-movie', upload.single('picture'), adminController.ADD_NEW_MOVIE);
+router.post('/delete-movie', adminController.DELETE_MOVIE);
 // Showtimes
 router.get('/showtimes-list', adminController.GET_SHOWTIMES_LIST);
 router.get('/add-showtime', adminController.GET_ADD_SHOWTIME);

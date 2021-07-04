@@ -11,6 +11,30 @@ module.exports = {
   HOME: asyncHandler(async (req, res) => {
     res.render('admin/dashboard');
   }),
+  CINEPLEXES_REVENUE: asyncHandler(async (req, res) => {
+    const { start, end } = req.body;
+    const from = new Date(start);
+    const to  = new Date(end);
+    if(to < from) return res.status(400).json({ status: 'error', message: 'The end date must be greater than the start date.' });
+    const revenue = await Cineplexes.cineplexesRevenue(start, end);
+    if(!revenue || revenue.length == 0) return res.status(400).json({ status: 'empty', message: 'No data currently available.' });
+    res.status(200).json({
+      status: 'success',
+      cineplexes_revenue: revenue
+    })
+  }),
+  MOVIES_REVENUE: asyncHandler(async (req, res) => {
+    const { start, end } = req.body;
+    const from = new Date(start);
+    const to  = new Date(end);
+    if(to < from) return res.status(400).json({ status: 'error', message: 'The end date must be greater than the start date.' });
+    const revenue = await Movies.moviesRevenue(start, end);
+    if(!revenue || revenue.length == 0) return res.status(400).json({ status: 'empty', message: 'No data currently available.' });
+    res.status(200).json({
+      status: 'success',
+      movies_revenue: revenue
+    })
+  }),
   GET_CINEPLEXES_LIST: asyncHandler(async (req, res) => {
     const cineplexes = await Cineplexes.getAll();
     res.render('admin/pages/cinema-complexes/cineplexes-list',{
@@ -83,6 +107,12 @@ module.exports = {
     console.log(picture);
     res.status(200).json({ status: 'success' });
   }),
+  DELETE_MOVIE: asyncHandler(async (req, res) => {
+    const { movieId } = req.body;
+    const hidden = await Movies.hiddenMovie(movieId);
+    if(hidden[0].status == true) return res.status(400).json({ message: 'Delete failed!' });
+    res.status(200).json({ status: 'success' });
+  }),
   GET_SHOWTIMES_LIST: asyncHandler(async (req, res) => {
     const showtimes = await Showtimes.getAll();
     res.render('admin/pages/showtimes/showtimes-list',{
@@ -119,8 +149,8 @@ module.exports = {
   }),
   DELETE_SHOWTIME: asyncHandler(async (req, res) => {
     const { cinemaId, movieId } = req.body;
-    // const hidden = await Cinemas.hiddenCinema(cinemaId);
-    // if(hidden[0].status == true) return res.status(400).json({ message: 'Delete failed!' });
+    const hidden = await Showtimes.hiddenShowtime(cinemaId, movieId);
+    if(hidden[0].status == true) return res.status(400).json({ message: 'Delete failed!' });
     res.status(200).json({ status: 'success' });
   })
 };

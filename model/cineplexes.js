@@ -7,6 +7,11 @@ module.exports = {
       type: QueryTypes.SELECT
     });
   },
+  cineplexesRevenue: async (start, end) => {
+    return db.query(`SELECT cipx."cineplexName", SUM(t.price) as "totalPrice", COUNT(t."_ticketID") as "totalTickets" FROM cineplexes cipx LEFT JOIN cinemas c ON cipx."_cineplexID" = c."cineplexID" LEFT JOIN booking b ON b."cinemaID" = c."_cinemaID" LEFT JOIN ticket t ON t."bookingID" = b."_bookingID" WHERE c.status = TRUE AND cipx.status = TRUE AND (b."createAt" >= '${start}' AND b."createAt" <= '${end}') GROUP BY cipx."_cineplexID"`, {
+      type: QueryTypes.SELECT
+    });
+  },
   getCineplexName: async () => {
     return db.query(`SELECT "_cineplexID", "cineplexName" FROM cineplexes WHERE status = TRUE`, {
       type: QueryTypes.SELECT

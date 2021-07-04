@@ -3,7 +3,7 @@ const db = require('./connect');
 
 module.exports = {
   findAllMostViewMovies: async () => {
-    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char("openingDay", 'DD/MM/YYYY') as "openingDay", COUNT(b."userID") as "countUser" FROM booking as b, movies as m WHERE b."movieID" = m."_movieID"  GROUP BY  m."_movieID" ORDER BY "countUser" DESC`,{
+    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char("openingDay", 'DD/MM/YYYY') as "openingDay", COUNT(b."userID") as "countUser" FROM booking as b, movies as m WHERE b."movieID" = m."_movieID" AND m.status = TRUE GROUP BY  m."_movieID" ORDER BY "countUser" DESC`,{
       type: QueryTypes.SELECT
     });
   },

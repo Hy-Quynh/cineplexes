@@ -3,7 +3,7 @@ const db = require('./connect');
 
 module.exports = {
   getAll: async () => {
-    return db.query(`SELECT st."movieID", st."cinemaID", c."cinemaName", m."movieName",to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", st.fare, st."showAt" FROM showtime st JOIN movies m ON st."movieID" = m."_movieID" JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE st.status = TRUE`, {
+    return db.query(`SELECT st."movieID", st."cinemaID", c."cinemaName", m."movieName",to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", st.fare, st."showAt" FROM showtime st JOIN movies m ON st."movieID" = m."_movieID" JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE st.status = TRUE AND m.status = TRUE`, {
       type: QueryTypes.SELECT
     });
   },
@@ -21,7 +21,7 @@ module.exports = {
     });
   },
   findAllByCineplex: async (cineplexId, movieId) => {
-    return db.query('SELECT c."_cinemaID", c."cinemaName", st."showAt" FROM showtime st JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE c."cineplexID" = :cpId AND  st."movieID" = :mId', {
+    return db.query('SELECT c."_cinemaID", c."cinemaName", st."showAt" FROM showtime st JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE c."cineplexID" = :cpId AND st."movieID" = :mId AND st.status = TRUE', {
       type: QueryTypes.SELECT,
       replacements: {
         cpId: cineplexId,
@@ -43,8 +43,8 @@ module.exports = {
       plain: true,
     });
   },
-  hiddenShowtime: async(cinemaId) => {
-    return db.query(`UPDATE cinemas SET status = FALSE WHERE "_cinemaID" = ${cinemaId} RETURNING status`, {
+  hiddenShowtime: async(cinemaId, movieId) => {
+    return db.query(`UPDATE showtime SET status = FALSE WHERE "cinemaID" = ${cinemaId} AND "movieID" = ${movieId} RETURNING status`, {
       type: QueryTypes.UPDATE,
       plain: true,
     });

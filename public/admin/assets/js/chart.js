@@ -5,10 +5,19 @@ $(function() {
    */
   'use strict';
   var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+    labels: ["CGV Vincom Đồng Khởi",
+             "CGV Aeon Bình Tân",
+             "CGV Thủ Đức",
+             "Galaxy Nguyễn Du",
+             "Lotte Cinema Cantavil",
+             "Lotte Cinema Cộng Hòa",
+             "Lotte Cinema Diamond Plaza",
+             "CGV Liberty Citypoint",
+             "CGV Saigonres Plaza",
+             "new cinema complex"],
     datasets: [{
       label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
+      data: [10, 19, 3, 5, 2, 3, 7, 15, 11],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -86,7 +95,7 @@ $(function() {
     }
   };
 
-  
+
   var doughnutPieData = {
     datasets: [{
       data: [30, 40, 30],
@@ -296,6 +305,7 @@ $(function() {
       }]
     }
   }
+
   // Get context with jQuery - using jQuery's .get() method.
   if ($("#barChart").length) {
     var barChartCanvas = $("#barChart").get(0).getContext("2d");

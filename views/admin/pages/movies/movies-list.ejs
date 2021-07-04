@@ -8,17 +8,20 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../../../admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../../../admin/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End Plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="../../../../admin/assets/css/style.css">
-    <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../../admin/assets/images/favicon.png" />
   </head>
   <body>
+    <section class="window-warning inActive">
+        <div class="lay"></div>
+        <div class="warning-item">
+          <h6 class="subtitle">Are you sure you want to delete?</h6>
+          <div class="button">
+            <button type="button" data-select="close" class="btn btn-secondary btn-fw">Cancel</button>
+            <button type="button" data-select="agree" class="btn btn-primary btn-fw">I agree</button>
+          </div>
+        </div>
+    </section>
     <div class="container-scroller">
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -206,8 +209,8 @@
             <div class="grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Striped Table</h4>
-                  <p class="card-description"> Add class <code>.table-striped</code>
+                  <h4 class="card-title">Movies</h4>
+                  <p class="card-description"><code>Movies list</code>
                   </p>
                   <div class="table-responsive">
                     <table class="table table-bordered">
@@ -236,7 +239,7 @@
                           <td style="word-wrap: break-word; width: 16%; text-align:left;" ><%= value.genre %></td>
                           <td><%= value.language %></td>
                           <td>
-                            <button type="button" class="btn btn-outline-danger btn-icon-text">
+                            <button type="button" data-movieid="<%= value._movieID %>" id="delete" class="btn btn-outline-danger btn-icon-text">
                               <i class="mdi mdi-delete"></i> Delete
                             </button>
                           </td>
@@ -263,20 +266,13 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     <script src="../../../../admin/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
     <script src="../../../../admin/assets/js/off-canvas.js"></script>
     <script src="../../../../admin/assets/js/hoverable-collapse.js"></script>
     <script src="../../../../admin/assets/js/misc.js"></script>
     <script src="../../../../admin/assets/js/settings.js"></script>
     <script src="../../../../admin/assets/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
+    <script src="../../../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../../../assets/js/delete-movie-admin.js"></script>
   </body>
 </html>
