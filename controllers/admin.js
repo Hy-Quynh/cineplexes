@@ -101,10 +101,10 @@ module.exports = {
     res.render('admin/pages/movies/add-movie');
   }),
   ADD_NEW_MOVIE: asyncHandler(async (req, res) => {
-    const { file } = req.body;
+    // const { fd } = req.body;
     const picture = req.file.buffer;
     // console.log(file);
-    console.log(picture);
+    console.log(req.file);
     res.status(200).json({ status: 'success' });
   }),
   DELETE_MOVIE: asyncHandler(async (req, res) => {
@@ -152,5 +152,10 @@ module.exports = {
     const hidden = await Showtimes.hiddenShowtime(cinemaId, movieId);
     if(hidden[0].status == true) return res.status(400).json({ message: 'Delete failed!' });
     res.status(200).json({ status: 'success' });
+  }),
+  LOGOUT: asyncHandler(async (req, res) => {
+    const { userID } = req.session;
+    delete req.session.userID;
+    res.redirect('/');
   })
 };

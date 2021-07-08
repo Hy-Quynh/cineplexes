@@ -14,26 +14,59 @@
       //   });
     });
 
-    // $(document).on('submit', '#add-new-movie', function (event) {
-    //   var fd = new FormData();
-    //   var file = $('#upload')[0].files[0];
-    //   fd.append('file', files);
-    //   $.ajax({
-    //       type: "POST",
-    //       url: '/admin/add-movie',
-    //       data: {
-    //         fd,
-    //       },
-    //       contentType: false,
-    //       processData: false,
-    //       success: function (response) {
-    //         console.log(response);
-    //       },
-    //       error: function (res) {
-    //
-    //       }
-    //     });
-    // });
+    function getBuffer(fileData) {
+    	return function(resolve) {
+          var reader = new FileReader();
+          reader.readAsArrayBuffer(fileData);
+          reader.onload = function() {
+            var arrayBuffer = reader.result
+            var bytes = new Uint8Array(arrayBuffer);
+            resolve(bytes);
+          }
+      }
+    }
+
+    $(document).on('submit', '#add-new-movie', function (e) {
+      e.preventDefault();
+      // var input = document.getElementById("upload");
+      // var files = input.files;
+      // fileData = new Blob([files[0]]);
+      // var promise = new Promise(getBuffer(fileData));
+      // console.log(promise);
+      // promise.then(function(data) {
+      //   console.log(data);
+      // }).catch(function(err) {
+      //   console.log('Error: ',err);
+      // });
+      // const formData = new FormData(this);
+      // var file = $("#myIndifile")[0].files[0];
+      // var formdata = new FormData();
+      // formdata.append("myFile", file);
+
+
+      let file = $('#upload').;
+      console.log(file);
+      let formData = new FormData();
+      formData.append('picture', file);
+      console.log(formData);
+      // const picture = $('#upload').val();
+      // var fd = new FormData($(this).get(0));
+      $.ajax({
+          type: "POST",
+          url: '/admin/add-movie',
+          data: {
+            // picture
+          },
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            console.log(response);
+          },
+          error: function (res) {
+
+          }
+        });
+    });
 
     // $(document).on('submit', '#add-new-movie', function (event) {
     //   event.preventDefault();

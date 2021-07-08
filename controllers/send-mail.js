@@ -114,7 +114,7 @@ module.exports = {
     let cinemaTicketHTML = "";
     for (let ticket of data.listInsertedTickets){
       cinemaTicketHTML += `
-      <ul style="border-bottom: 1px dashed #11326f; margin: 0; padding: 0;">
+      <ul style="border-bottom: 1px dashed #11326f; margin: 0; padding: 0; margin-top: 30px;">
         <li style="padding: 0; margin-bottom: 30px; list-style: none; display: list-item; text-align: -webkit-match-parent;">
             <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: flex; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
               <span>${ticket._ticketID}</span>
@@ -132,9 +132,9 @@ module.exports = {
               <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: flex; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
                 <span>${data.infoMovie.cinemaName}</span>
               </h6>
-              <div style="margin-bottom: -14px; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; font-size: 14px; text-transform: uppercase; color: #9aace5; flex-wrap: wrap; display: flex; box-sizing: border-box;">
+              <div style="margin-bottom: -14px; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; font-size: 14px; text-transform: uppercase; color: #9aace5; flex-wrap: wrap; display: block; box-sizing: border-box;">
                 <span>${data.infoMovie.startTime} ~ ${data.infoMovie.endTime}</span>
-                <span>${data.infoMovie.showAt}</span>
+                <span style="float: right; margin-right: 15px;">${data.infoMovie.showAt}</span>
               </div>
           </li>
           <li style="margin-top: 30px; padding: 0; margin-bottom: 30px; list-style: none; display: list-item; text-align: -webkit-match-parent;">
@@ -146,19 +146,19 @@ module.exports = {
               </span>
           </li>
           <li style="padding: 0; margin-bottom: 30px; list-style: none; display: list-item; text-align: -webkit-match-parent;">
-              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: flex; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
+              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: block; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
                 <span>${ticket.row} - ${ticket.column}</span>
-                <span>01</span>
+                <span style="float: right; margin-right: 15px;">01</span>
               </h6>
-              <div style="margin-bottom: -14px; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; font-size: 14px; text-transform: uppercase; color: #9aace5; flex-wrap: wrap; display: flex; box-sizing: border-box;">
+              <div style="margin-bottom: -14px; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; font-size: 14px; text-transform: uppercase; color: #9aace5; flex-wrap: wrap; display: block; box-sizing: border-box;">
                 <span>${data.createdAt}</span>
-                <span>${name}</span>
+                <span style="float: right; margin-right: 15px;">${name}</span>
               </div>
           </li>
           <li style="padding: 0; margin-bottom: 30px; list-style: none; display: list-item; text-align: -webkit-match-parent;">
-              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: flex; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
-                <span>Tickets  Price</span>
-                <span>vnd ${ticket.price}</span>
+              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: block; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
+                <span>Tickets Price</span>
+                <span style="float: right; margin-right: 15px;">vnd ${ticket.price}</span>
               </h6>
           </li>
       </ul>`
@@ -170,7 +170,7 @@ module.exports = {
       subject: "Cinema tickets",
       html: `
             <div style="overflow: hidden;padding-bottom: 80px;padding-top: 80px; font-size: 16px; color: #dbe2fb; line-height: 28px; font-family: 'Open Sans', sans-serif; background: #001232;">
-                <div style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; max-width: 450px; display: block;">
+                <div style="width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; max-width: 490px; display: block;">
                     <div style="display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
                         <div style="position: relative; width: 100%; padding-right: 15px; padding-left: 15px;">
                             <div style="padding: 30px;border: 1px solid #11326f; border-bottom-style: dashed; padding-bottom: 10px; margin-top: 60px; background-color: #032055; display: block;">
@@ -180,9 +180,9 @@ module.exports = {
                                 ${cinemaTicketHTML}
                             </div>
                             <div style="padding: 30px; border: 1px solid #11326f; border-bottom-style: dashed; padding-bottom: 10px; background-color: #032055; display: block; height: 50px;">
-                              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: flex; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
+                              <h6 style="text-transform: uppercase; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; margin-bottom: 7px; display: block; flex-wrap: wrap; font-size: 18px; margin-top: -5px; font-weight: 600; margin: 0; line-height: 1.3; color: #ffffff; font-family: 'Open Sans', sans-serif;">
                                 <span>Total</span>
-                                <span>VND ${data.total.toLocaleString()}</span>
+                                <span style="float: right; margin-right: 15px;">VND ${data.total.toLocaleString()}</span>
                               </h6>
                             </div>
                         </div>

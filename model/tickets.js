@@ -30,6 +30,7 @@ module.exports = {
      });
   },
   addTicket: async (data) => {
+    const trans = await db.transaction();
     return db.query('INSERT INTO ticket("_ticketID", "bookingID", "seatCode", "row", "column", price) VALUES (default, $booking_id, $seat_code, $row, $column, $price) RETURNING "_ticketID", "seatCode", "row", "column", price',{
       bind: {
         booking_id: JSON.parse(data).bookingId,

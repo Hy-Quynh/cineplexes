@@ -34,4 +34,6 @@ router.get('/add-showtime', adminController.GET_ADD_SHOWTIME);
 router.post('/add-showtime', adminController.ADD_NEW_SHOWTIME);
 router.post('/delete-showtime', adminController.DELETE_SHOWTIME);
 router.get('/cinema-by-cineplex', adminController.GET_CINEMA_BY_CINEPLEX);
+// Logout
+router.get('/logout', adminController.LOGOUT);
 module.exports = router;
