@@ -30,6 +30,22 @@ module.exports = {
        replacements:{ id:movieID }
      });
   },
+  addNewMovie: async (movie) => {
+    return db.query('INSERT INTO movies ("_movieID", "movieName", "openingDay", "moviePoster", "runningTime", "createdAt", trailer, genre, introduction, "language", status) VALUES (DEFAULT, $name_movie, $open_day, $poster, $run_time, DEFAULT, $trailer, $genre, $introduction, $language, DEFAULT) RETURNING "_movieID"',{
+      bind: {
+        name_movie: movie.name_movie,
+        open_day: movie.open_day,
+        poster: movie.poster,
+        run_time: movie.run_time,
+        trailer: movie.trailer,
+        genre: movie.genre,
+        introduction: movie.introduction,
+        language: movie.language
+      },
+      type: QueryTypes.INSERT,
+      plain: true,
+    });
+  },
   findAllComingSoonMovies: async () => {
     return db.query(`SELECT "_movieID", "movieName", 'data:image/gif;base64,' || encode("moviePoster", 'base64') AS poster, to_char("openingDay", 'DD/MM/YYYY') as "openingDay" FROM movies WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) > 0) AND status = TRUE`,{
       type: QueryTypes.SELECT
@@ -44,11 +60,6 @@ module.exports = {
     return db.query(`SELECT "_movieID", "movieName", 'data:image/gif;base64,' || encode("moviePoster", 'base64') AS poster, to_char("openingDay", 'DD/MM/YYYY') as "openingDay", "runningTime", trailer, genre, introduction, language FROM movies WHERE "_movieID" = ${movieID} AND status = TRUE`,{
       type: QueryTypes.SELECT,
       plain: true
-    });
-  },
-  searchForMovie: async (keyword, cineplexId) => {
-    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", c."cinemaName" FROM movies m JOIN showtime st ON m."_movieID" = st."movieID" JOIN cinemas c ON c."_cinemaID" = st."cinemaID" WHERE "movieName" ILIKE '%${keyword}%' AND c."cineplexID" = ${cineplexId} AND ("startTime"::TIMESTAMP < NOW()::TIMESTAMP AND "endTime"::TIMESTAMP > NOW()::TIMESTAMP) AND m.status = TRUE AND c.status = TRUE ORDER BY DATE(st."startTime") DESC`,{
-      type: QueryTypes.SELECT
     });
   },
   getMovieName: async () => {

@@ -101,11 +101,22 @@ module.exports = {
     res.render('admin/pages/movies/add-movie');
   }),
   ADD_NEW_MOVIE: asyncHandler(async (req, res) => {
-    // const { fd } = req.body;
-    const picture = req.file.buffer;
-    // console.log(file);
-    console.log(req.file);
-    res.status(200).json({ status: 'success' });
+    const { name, open, runtime, trailer, genre, introduction, language } = req.body;
+    if(!req.file) return res.render('admin/pages/movies/add-movie',{ status: 'error', message: 'Please upload picture' });
+    if(name == '' || open == '' || runtime == '' || trailer == '' || genre == '' || introduction == '' || language == '') return res.render('admin/pages/movies/add-movie',{ status: 'error', message: 'Please fill out the form completely' });
+    const newMovie = {
+      name_movie: name,
+      open_day: open,
+      poster: req.file.buffer,
+      run_time: runtime,
+      trailer: trailer,
+      genre: genre,
+      introduction: introduction,
+      language: language
+    };
+    const added_movie = await Movies.addNewMovie(newMovie);
+    if(!added_movie[0]) return res.render('admin/pages/movies/add-movie',{ status: 'error', message: 'Add failed' });
+    res.render('admin/pages/movies/add-movie',{ status: 'success' });
   }),
   DELETE_MOVIE: asyncHandler(async (req, res) => {
     const { movieId } = req.body;

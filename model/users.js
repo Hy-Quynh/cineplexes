@@ -43,9 +43,15 @@ module.exports = {
       }
     });
   },
-  historyTicketOfUser: async (userId) => {
-    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(b."createAt", 'DD/MM/YYYY HH24:MI') as "createAt", t."seatCode", cipx."cineplexName", c."cinemaName" FROM movies m JOIN booking b ON m."_movieID" = b."movieID" JOIN cinemas c ON b."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN ticket t ON b."_bookingID" = t."bookingID" WHERE  b."userID" = ${userId}`,{
+  historyTicketOfUser: async (userId, skip, limit) => {
+    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(b."createAt", 'DD/MM/YYYY HH24:MI') as "createAt", t."seatCode", cipx."cineplexName", c."cinemaName" FROM movies m JOIN booking b ON m."_movieID" = b."movieID" JOIN cinemas c ON b."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN ticket t ON b."_bookingID" = t."bookingID" WHERE  b."userID" = ${userId} OFFSET ${skip} LIMIT ${limit}`,{
       type: QueryTypes.SELECT
+    });
+  },
+  totalItemTicketOfUser: async (userId) => {
+    return db.query(`SELECT COUNT(*) as total FROM movies m JOIN booking b ON m."_movieID" = b."movieID" JOIN cinemas c ON b."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN ticket t ON b."_bookingID" = t."bookingID" WHERE  b."userID" = ${userId}`,{
+      type: QueryTypes.SELECT,
+      plain: true
     });
   }
 };

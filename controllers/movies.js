@@ -14,22 +14,28 @@ module.exports = {
   }),
   GET_NOW_SHOWING: asyncHandler(async (req, res) => {
     const getAllNowShowingMovies = await Movies.findAllNowShowingMovies();
+    const getAllCineplex = await Cineplex.getAll();
     res.render('movies/movies-list', {
       status: 'Now Showing',
+      cineplexes: getAllCineplex,
       nowShowing: getAllNowShowingMovies
      })
   }),
   GET_COMING_SOON: asyncHandler(async (req, res) => {
     const getAllComingSoonMovies = await Movies.findAllComingSoonMovies();
+    const getAllCineplex = await Cineplex.getAll();
     res.render('movies/movies-list', {
       status: 'Coming soon',
+      cineplexes: getAllCineplex,
       comingSoonMovies: getAllComingSoonMovies
     })
   }),
   GET_MOST_VIEW: asyncHandler(async (req, res) => {
     const getAllMostViewMovies = await Booking.findAllMostViewMovies();
+    const getAllCineplex = await Cineplex.getAll();
     res.render('movies/movies-list', {
       status: 'Most view',
+      cineplexes: getAllCineplex,
       mostViewMovies: getAllMostViewMovies
     })
   }),
@@ -44,12 +50,24 @@ module.exports = {
       cineplex
     });
   }),
-  SEARCH_FOR_MOVIES_BY_CINEPLEX: asyncHandler(async (req, res) =>{
+  SEARCH_FOR_SHOWTIMES_BY_CINEPLEX: asyncHandler(async (req, res) =>{
     const { keyword, cineplexSelect } = req.body;
-    const movie_list = await Movies.searchForMovie(keyword, cineplexSelect);
+    const movie_list = await Showtime.searchForShowtimeCineplex(keyword, cineplexSelect);
+    const getAllCineplex = await Cineplex.getAll();
     res.render('movies/search', {
       status: 'Cineplex',
+      cineplexes: getAllCineplex,
       showtimeSearched: movie_list
-    })
+    });
+  }),
+  SEARCH_FOR_SHOWTIMES_BY_CINEMA: asyncHandler(async (req, res) =>{
+    const { keyword } = req.body;
+    const movie_list = await Showtime.searchForShowtimeCinema(keyword);
+    const getAllCineplex = await Cineplex.getAll();
+    res.render('movies/search', {
+      status: 'Cinema',
+      cineplexes: getAllCineplex,
+      showtimeSearched: movie_list
+    });
   })
 };

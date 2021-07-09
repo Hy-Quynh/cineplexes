@@ -83,8 +83,25 @@ module.exports = {
   }),
   PROFILE: asyncHandler(async (req, res) => {
     const { userID } = req.session;
-    const historyTicket = await User.historyTicketOfUser(userID);
-    res.render('user/profile', { historyTicket });
+    const skip = 1;
+    const limit = 5;
+    // const index = (page - 1) * limit;
+    // const end = page * limit;
+    const item = await User.totalItemTicketOfUser(userID);
+    const totalPages = Math.floor(item.total / limit) + ((Math.floor(item.total / limit) == 0) ? 0 : 1);
+    const historyTicket = await User.historyTicketOfUser(userID, skip, limit);
+    res.render('user/profile', { historyTicket, totalPages, limit});
+  }),
+  PAGING_BOOK_TICKET_PROFILE: asyncHandler(async (req, res) => {
+    const { userID } = req.session;
+    const { page, limit } = req.query;
+    const item = await User.totalItemTicketOfUser(userID);
+    const totalPages = Math.floor(item.total / limit) + ((Math.floor(item.total / limit) == 0) ? 0 : 1);
+    const skip = ((page - 1) * limit) < 0 ? 0 : (page - 1) * limit;
+    console.log(skip);
+    const historyTicket = await User.historyTicketOfUser(userID, skip, limit);
+    res.render('user/profile', { historyTicket, totalPages, limit});
+    // Math.floor
   }),
   CHANGE_PASSWORD: asyncHandler(async (req, res) => {
     const { _userID } = req.data;

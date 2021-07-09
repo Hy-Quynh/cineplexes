@@ -1,149 +1,36 @@
 (function ($) {
-    // "use strict";
+    "use strict";
 
-    jQuery(document).ready(function ($) {
-      // $.ajax({
-      //       url: '/admin/add-movie',
-      //       dataType: "jsonp",
-      //       success: function (data) {
-      //         console.log(data);
-      //       },
-      //       error: function (res) {
-      //
-      //       }
-      //   });
-    });
-
-    function getBuffer(fileData) {
-    	return function(resolve) {
-          var reader = new FileReader();
-          reader.readAsArrayBuffer(fileData);
-          reader.onload = function() {
-            var arrayBuffer = reader.result
-            var bytes = new Uint8Array(arrayBuffer);
-            resolve(bytes);
-          }
+    const status = $('#status').val();
+    if(status != ''){
+      if(status == 'error'){
+        const message = $('#status').data('message');
+        jQuery(document).ready(function ($) {
+          document.body.appendChild(div);
+          CreateToast(status, 'Please enter information.', message);
+          var thisToastSelect = toastCounter - 1;
+          $(document).find("#toast_"+thisToastSelect).slideDown(600);
+          setTimeout(function(){
+            $(document).find("#toast_"+thisToastSelect).slideUp(600,function(){
+              $(this).remove();
+            });
+          },3000);  // 3sec.
+        });
+      }
+      else if(status == 'success'){
+        jQuery(document).ready(function ($) {
+          document.body.appendChild(divSuccess);
+          CreateToastSuccess('success', 'Successfully Added!');
+          var thisToastSuccessSelect = toastCounterSuccess - 1;
+          $(document).find("#toast_success_"+thisToastSuccessSelect).slideDown(600);
+          setTimeout(function(){
+            $(document).find("#toast_success_"+thisToastSuccessSelect).slideUp(600,function(){
+              $(this).remove();
+            });
+          },1500);  // 2sec.
+        });
       }
     }
-
-    $(document).on('submit', '#add-new-movie', function (e) {
-      e.preventDefault();
-      // var input = document.getElementById("upload");
-      // var files = input.files;
-      // fileData = new Blob([files[0]]);
-      // var promise = new Promise(getBuffer(fileData));
-      // console.log(promise);
-      // promise.then(function(data) {
-      //   console.log(data);
-      // }).catch(function(err) {
-      //   console.log('Error: ',err);
-      // });
-      // const formData = new FormData(this);
-      // var file = $("#myIndifile")[0].files[0];
-      // var formdata = new FormData();
-      // formdata.append("myFile", file);
-
-
-      let file = $('#upload').;
-      console.log(file);
-      let formData = new FormData();
-      formData.append('picture', file);
-      console.log(formData);
-      // const picture = $('#upload').val();
-      // var fd = new FormData($(this).get(0));
-      $.ajax({
-          type: "POST",
-          url: '/admin/add-movie',
-          data: {
-            // picture
-          },
-          contentType: false,
-          processData: false,
-          success: function (response) {
-            console.log(response);
-          },
-          error: function (res) {
-
-          }
-        });
-    });
-
-    // $(document).on('submit', '#add-new-movie', function (event) {
-    //   event.preventDefault();
-    //   // var form = new FormData(document.getElementById("my-awesome-dropzone"));
-    //   // var picture = $('#upload').val();
-    //   // var formData = new FormData( $('#add-new-movie')[0]);
-    //   var filename = $('#upload').val();
-    //   var formData = new FormData(this);
-    //   formData.append('picture', filename);
-    //
-    //   console.log(formData);
-      // $.ajax({
-      //       type: "POST",
-      //       url: '/admin/add-movie',
-      //       data: {
-      //       },
-      //       success: function (data) {
-      //         console.log(data);
-      //       },
-      //       error: function (res) {
-      //
-      //       }
-      //   });
-
-      // console.log(picture);
-      // var address = $('#address').val();
-      // if(name == '' || address == '' || !name || !address){
-      //   document.body.appendChild(div);
-      //   CreateToast('error', 'Invalid!', 'Please enter information.');
-      //   var thisToastSelect = toastCounter - 1;
-      //   $(document).find("#toast_"+thisToastSelect).slideDown(600);
-      //   setTimeout(function(){
-      //     $(document).find("#toast_"+thisToastSelect).slideUp(600,function(){
-      //       $(this).remove();
-      //     });
-      //   },3000);  // 3sec.
-      // }
-      // else{
-      //   $.ajax({
-      //       type: "POST",
-      //       url: '/admin/add-cineplex',
-      //       data: {
-      //           name_cineplex: name,
-      //           address: address,
-      //       },
-      //       success: function (data) {
-      //         if(data.status == 'success'){
-      //           $('#name-cineplex').val('');
-      //           $('#address').val('');
-      //           document.body.appendChild(divSuccess);
-      //           CreateToastSuccess('success', 'Successfully Added!');
-      //           var thisToastSuccessSelect = toastCounterSuccess - 1;
-      //           $(document).find("#toast_success_"+thisToastSuccessSelect).slideDown(600);
-      //           setTimeout(function(){
-      //             $(document).find("#toast_success_"+thisToastSuccessSelect).slideUp(600,function(){
-      //               $(this).remove();
-      //             });
-      //           },1500);  // 2sec.
-      //         }
-      //       },
-      //       error: function (res) {
-      //         if(res.responseJSON){
-      //           document.body.appendChild(div);
-      //           CreateToast('error', 'Error!', `${res.responseJSON.message}`);
-      //           var thisToastSelect = toastCounter - 1;
-      //           $(document).find("#toast_"+thisToastSelect).slideDown(600);
-      //           setTimeout(function(){
-      //             $(document).find("#toast_"+thisToastSelect).slideUp(600,function(){
-      //               $(this).remove();
-      //             });
-      //           },3000);  // 3sec.
-      //         }
-      //       }
-      //   });
-      // }
-
-    // });
 
     var toastCounter=0;
     var div = document.createElement("div");

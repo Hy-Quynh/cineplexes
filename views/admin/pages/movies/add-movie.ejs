@@ -5,20 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Add New Movie</title>
-    <!-- plugins:css -->
     <link rel="stylesheet" href="../../../../admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../../../admin/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End Plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="../../../../admin/assets/css/style.css">
-    <!-- End layout styles -->
     <link rel="shortcut icon" href="../../../../admin/assets/images/favicon.png" />
   </head>
   <body>
+    <input type="hidden" name="status" data-message="<%= typeof message != 'undefined' ? message : '' %>" id="status" value="<%- typeof status != 'undefined' ? status : '' %>">
     <div class="container-scroller">
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -206,9 +199,9 @@
               <div class="grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Add new movie</h4>
-                    <p class="card-description"> Basic form layout </p>
-                    <form class="forms-sample" id="add-new-movie" enctype="multipart/form-data">
+                    <h4 class="card-title">Movie</h4>
+                    <p class="card-description"> Add new movie </p>
+                    <form class="forms-sample" action="/admin/add-movie" enctype="multipart/form-data" method="post">
                       <div class="row">
                         <div class="col-md-4">
                           <div class="form-group">
@@ -226,32 +219,31 @@
                         <div class="col-md-8">
                           <div class="form-group">
                             <label for="mame">Name Movie</label>
-                            <input type="text" class="form-control" id="mame" placeholder="Enter Name Movie...">
+                            <input type="text" class="form-control" id="mame" name="name" placeholder="Enter Name Movie...">
                           </div>
                           <div class="form-group">
                             <label for="openingDay">Opening Day</label>
-                            <input type="date" class="form-control" id="openingDay" placeholder="Enter Opening Day...">
+                            <input type="date" class="form-control" id="openingDay" name="open" placeholder="Enter Opening Day...">
                           </div>
                           <div class="form-group">
                             <label for="runingTime">Run time</label>
-                            <input type="text" class="form-control" id="runingTime" placeholder="Enter Run Time...">
+                            <input type="text" class="form-control" id="runingTime" name="runtime" placeholder="Enter Run Time...">
                           </div>
                           <div class="form-group">
                             <label for="trailer">Trailer</label>
-                            <input type="text" class="form-control" id="trailer" placeholder="Enter Trailer...">
+                            <input type="text" class="form-control" id="trailer" name="trailer" placeholder="Enter Trailer...">
                           </div>
                           <div class="form-group">
                             <label for="genre">Genre</label>
-                            <input type="text" class="form-control" id="genre" placeholder="Enter Genre...">
+                            <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter Genre...">
                           </div>
                           <div class="form-group">
                             <label for="introduction">Introduction</label>
-                            <textarea class="form-control" id="introduction" rows="4">
-                            </textarea>
+                            <textarea class="form-control" id="introduction" name="introduction" rows="4"></textarea>
                           </div>
                           <div class="form-group">
                             <label for="language">Language</label>
-                            <input type="text" class="form-control" id="language" placeholder="Enter Language....">
+                            <input type="text" class="form-control" id="language" name="language" placeholder="Enter Language....">
                           </div>
                           <button type="submit" class="btn btn-outline-primary btn-fw">Add New</button>
                         </div>
