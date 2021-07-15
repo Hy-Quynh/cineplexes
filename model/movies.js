@@ -9,13 +9,6 @@ module.exports = {
   moviesRevenue: async (start, end) => {
     return db.query(`SELECT m."movieName", SUM(t.price) as "totalPrice", COUNT(t."_ticketID") as "totalTickets" FROM movies m LEFT JOIN booking b ON m."_movieID" = b."movieID" LEFT JOIN ticket t ON t."bookingID" = b."_bookingID" WHERE m.status = TRUE AND (b."createAt" >= '${start}' AND b."createAt" <= '${end}') GROUP BY m."_movieID"`,{ type: QueryTypes.SELECT });
   },
-  findByPicture: async (movieID) => {
-    return db.query('SELECT "moviePoster" FROM movies WHERE "_movieID" = :id AND status = TRUE',{
-       type: QueryTypes.SELECT,
-       plain: true,
-       replacements:{ id:movieID }
-     });
-  },
   findByID: async (movieID) => {
     return db.query('SELECT * FROM movies WHERE "_movieID" = :id AND status = TRUE',{
        type: QueryTypes.SELECT,
@@ -29,22 +22,6 @@ module.exports = {
        plain: true,
        replacements:{ id:movieID }
      });
-  },
-  addNewMovie: async (movie) => {
-    return db.query('INSERT INTO movies ("_movieID", "movieName", "openingDay", "moviePoster", "runningTime", "createdAt", trailer, genre, introduction, "language", status) VALUES (DEFAULT, $name_movie, $open_day, $poster, $run_time, DEFAULT, $trailer, $genre, $introduction, $language, DEFAULT) RETURNING "_movieID"',{
-      bind: {
-        name_movie: movie.name_movie,
-        open_day: movie.open_day,
-        poster: movie.poster,
-        run_time: movie.run_time,
-        trailer: movie.trailer,
-        genre: movie.genre,
-        introduction: movie.introduction,
-        language: movie.language
-      },
-      type: QueryTypes.INSERT,
-      plain: true,
-    });
   },
   findAllComingSoonMovies: async () => {
     return db.query(`SELECT "_movieID", "movieName", 'data:image/gif;base64,' || encode("moviePoster", 'base64') AS poster, to_char("openingDay", 'DD/MM/YYYY') as "openingDay" FROM movies WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) > 0) AND status = TRUE`,{
@@ -62,15 +39,41 @@ module.exports = {
       plain: true
     });
   },
-  getMovieName: async () => {
-    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) < 0) AND status = TRUE ORDER BY "createdAt"::TIMESTAMP DESC`, {
-      type: QueryTypes.SELECT
+
+  addNewMovie: async (movie) => {
+    return db.query('INSERT INTO movies ("_movieID", "movieName", "openingDay", "moviePoster", "runningTime", "createdAt", trailer, genre, introduction, "language", status) VALUES (DEFAULT, $name_movie, $open_day, $poster, $run_time, DEFAULT, $trailer, $genre, $introduction, $language, DEFAULT) RETURNING "_movieID"',{
+      bind: {
+        name_movie: movie.name_movie,
+        open_day: movie.open_day,
+        poster: movie.poster,
+        run_time: movie.run_time,
+        trailer: movie.trailer,
+        genre: movie.genre,
+        introduction: movie.introduction,
+        language: movie.language
+      },
+      type: QueryTypes.INSERT,
+      plain: true,
     });
-  },
+  }, 
   hiddenMovie: async(movieId) => {
     return db.query(`UPDATE movies SET status = FALSE WHERE "_movieID" = ${movieId} RETURNING status`, {
       type: QueryTypes.UPDATE,
       plain: true,
     });
-  }
+  },
+
+  getMovieName: async () => {
+    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) < 0) AND status = TRUE ORDER BY "createdAt"::TIMESTAMP DESC`, {
+      type: QueryTypes.SELECT
+    });
+  },
+
+  findByPicture: async (movieID) => {
+    return db.query('SELECT "moviePoster" FROM movies WHERE "_movieID" = :id AND status = TRUE',{
+       type: QueryTypes.SELECT,
+       plain: true,
+       replacements:{ id:movieID }
+     });
+  },
 };

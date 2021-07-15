@@ -12,15 +12,6 @@ module.exports = {
       movies: findAll
     });
   }),
-  GET_NOW_SHOWING: asyncHandler(async (req, res) => {
-    const getAllNowShowingMovies = await Movies.findAllNowShowingMovies();
-    const getAllCineplex = await Cineplex.getAll();
-    res.render('movies/movies-list', {
-      status: 'Now Showing',
-      cineplexes: getAllCineplex,
-      nowShowing: getAllNowShowingMovies
-     })
-  }),
   GET_COMING_SOON: asyncHandler(async (req, res) => {
     const getAllComingSoonMovies = await Movies.findAllComingSoonMovies();
     const getAllCineplex = await Cineplex.getAll();
@@ -39,16 +30,15 @@ module.exports = {
       mostViewMovies: getAllMostViewMovies
     })
   }),
-  DETAIL_MOVIE: asyncHandler(async (req, res) => {
-    const { movieID } = req.params;
-    const detailMovie = await Movies.detailMovie(movieID);
-    const cinemaName = await Showtime.findAllCinemaNameMovie(movieID);
-    const cineplex = await Cineplex.findAllCineplexOfShowtime(movieID);
-    res.render('movies/detail-movie', {
-      detailMovie,
-      cinemaName,
-      cineplex
-    });
+
+  GET_NOW_SHOWING: asyncHandler(async (req, res) => {
+    const getAllNowShowingMovies = await Movies.findAllNowShowingMovies();
+    const getAllCineplex = await Cineplex.getAll();
+    res.render('movies/movies-list', {
+      status: 'Now Showing',
+      cineplexes: getAllCineplex,
+      nowShowing: getAllNowShowingMovies
+     })
   }),
   SEARCH_FOR_SHOWTIMES_BY_CINEPLEX: asyncHandler(async (req, res) =>{
     const { keyword, cineplexSelect } = req.body;
@@ -60,6 +50,19 @@ module.exports = {
       showtimeSearched: movie_list
     });
   }),
+
+  DETAIL_MOVIE: asyncHandler(async (req, res) => {
+    const { movieID } = req.params;
+    const detailMovie = await Movies.detailMovie(movieID);
+    const cinemaName = await Showtime.findAllCinemaNameMovie(movieID);
+    const cineplex = await Cineplex.findAllCineplexOfShowtime(movieID);
+    res.render('movies/detail-movie', {
+      detailMovie,
+      cinemaName,
+      cineplex
+    });
+  }),
+
   SEARCH_FOR_SHOWTIMES_BY_CINEMA: asyncHandler(async (req, res) =>{
     const { keyword } = req.body;
     const movie_list = await Showtime.searchForShowtimeCinema(keyword);
@@ -69,5 +72,5 @@ module.exports = {
       cineplexes: getAllCineplex,
       showtimeSearched: movie_list
     });
-  })
+  }),
 };

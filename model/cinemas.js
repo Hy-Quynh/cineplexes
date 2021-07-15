@@ -13,6 +13,17 @@ module.exports = {
       type: QueryTypes.SELECT,
     });
   },
+  hiddenCinema: async(cinemaId) => {
+    return db.query(`UPDATE cinemas SET status = FALSE WHERE "_cinemaID" = ${cinemaId} RETURNING status`, {
+      type: QueryTypes.UPDATE,
+      plain: true,
+    });
+  },
+  getCinemaName: async (cineplexId) => {
+    return db.query(`SELECT "_cinemaID", "cinemaName" FROM cinemas WHERE "cineplexID" = ${cineplexId} AND status = TRUE`, {
+      type: QueryTypes.SELECT
+    });
+  },
   addNewCinema: async (cinema) => {
     return db.query('INSERT INTO cinemas ("_cinemaID", "cinemaName", "cineplexID", "cinemaType", "horizontalSize", "verticalSize") VALUES (DEFAULT, $cinema_name, $cineplex_id, $cinema_type, $horizontal_size, $vertical_size) RETURNING "_cinemaID", "cineplexID", "cinemaName", "cinemaType", "horizontalSize", "verticalSize"',{
       bind: {
@@ -26,15 +37,4 @@ module.exports = {
       plain: true,
     });
   },
-  hiddenCinema: async(cinemaId) => {
-    return db.query(`UPDATE cinemas SET status = FALSE WHERE "_cinemaID" = ${cinemaId} RETURNING status`, {
-      type: QueryTypes.UPDATE,
-      plain: true,
-    });
-  },
-  getCinemaName: async (cineplexId) => {
-    return db.query(`SELECT "_cinemaID", "cinemaName" FROM cinemas WHERE "cineplexID" = ${cineplexId} AND status = TRUE`, {
-      type: QueryTypes.SELECT
-    });
-  }
 };
