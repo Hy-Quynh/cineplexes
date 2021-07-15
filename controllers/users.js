@@ -84,13 +84,30 @@ module.exports = {
   PROFILE: asyncHandler(async (req, res) => {
     const { userID } = req.session;
     const skip = 1;
-    const limit = 5;
+    const limit = 10;
     // const index = (page - 1) * limit;
     // const end = page * limit;
     const item = await User.totalItemTicketOfUser(userID);
     const totalPages = Math.floor(item.total / limit) + ((Math.floor(item.total / limit) == 0) ? 0 : 1);
     const historyTicket = await User.historyTicketOfUser(userID, skip, limit);
     res.render('user/profile', { historyTicket, totalPages, limit});
+  }),
+  EDIT_PROFILE: asyncHandler(async (req, res) => {
+    const { userID } = req.session;
+    const { information, need_editing } = req.body;
+    if(need_editing == 'name'){
+      const edited = await User.edit_name(userID, information);
+      if(edited[0].fullName) return res.status(200).json({ status: 'success', edited_information: edited[0].fullName });
+    }
+    else if(need_editing == 'email'){
+      const edited = await User.edit_email(userID, information);
+      if(edited[0].email) return res.status(200).json({ status: 'success', edited_information: edited[0].email });
+    }
+    else if(need_editing == 'phonenumber'){
+      const edited = await User.edit_phoneNumber(userID, information);
+      if(edited[0].phoneNumber) return res.status(200).json({ status: 'success', edited_information: edited[0].phoneNumber });
+    }
+    res.status(400).json({ status: 'failed' });
   }),
   PAGING_BOOK_TICKET_PROFILE: asyncHandler(async (req, res) => {
     const { userID } = req.session;
@@ -104,16 +121,13 @@ module.exports = {
     // Math.floor
   }),
   CHANGE_PASSWORD: asyncHandler(async (req, res) => {
-    const { _userID } = req.data;
+    const { userID } = req.session;
     const { password } = req.body;
-    const result = await User.findByID(_userID);
-    if (result) {
-      const passwordHash = await bcrypt.hashSync(password, 10);
-      await User.findOneAndUpdate(_userID, passwordHash);
-      res.status(200).json({
-          message: 'Password has been changed successfully'
-        })
-    };
+    const result = await User.findByID(userID);
+    if (!result) res.status(400).json({ message: 'User does not exist.' });
+    const isMatch = await bcrypt.compareSync(password, result.password);
+    if(!isMatch) return res.status(400).json({ message: 'Password is incorrect, please try again.' });
+    res.status(200).json({ status: 'success' });
   }),
   REFRESH_TOKEN: async (req, res) => {
     const refreshToken = req.body;

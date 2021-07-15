@@ -13,9 +13,9 @@ const { OAuth2 } = google.auth;
 
 const MAILING_SERVICE_CLIENT_ID = '251075614261-b2iu4bmobrtnmto0q8v17iknj4g2d1pe.apps.googleusercontent.com';
 const MAILING_SERVICE_CLIENT_SECRET = 'O_d7euqJ_R0pOyidGC6Kl2Pt';
-const SENDER_EMAIL_ADDRESS = 'tp2770256@gmail.com';
-const MAILING_SERVICE_REFRESH_TOKEN = '1//04DMgdQy3ih31CgYIARAAGAQSNwF-L9IrwartOWKaSCHHQn63YvWA3TKSNfKUywd7PsGiJEWHzgjHPb37sRUpSpOtv7pv7VpbhK8';
+const MAILING_SERVICE_REFRESH_TOKEN = '1//0427VnGDZrjkYCgYIARAAGAQSNwF-L9Ir4KkiTuiWkn8-e-spu0aNKOu3dig0qbMkdug9LiSNb8kNOIA4wMkxyYv0uhIBmI9TEyc';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const SENDER_EMAIL_ADDRESS = 'tp2770256@gmail.com';
 const PASSWORD_EMAIL = 'TP123456789'
 
 

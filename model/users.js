@@ -53,5 +53,23 @@ module.exports = {
       type: QueryTypes.SELECT,
       plain: true
     });
+  },
+  edit_name: async (userId, name) => {
+    return db.query(`UPDATE users SET "fullName" = '${name}' WHERE "_userID" = '${userId}' RETURNING "fullName"`, {
+      type: QueryTypes.UPDATE,
+      plain: true
+    });
+  },
+  edit_email: async (userId, email) => {
+    return db.query(`UPDATE users SET email = '${email}' WHERE "_userID" = '${userId}' RETURNING email`, {
+      type: QueryTypes.UPDATE,
+      plain: true
+    });
+  },
+  edit_phoneNumber: async (userId, phone_number) => {
+    return db.query(`UPDATE users SET "phoneNumber" = '${phone_number}' WHERE "_userID" = '${userId}' RETURNING "phoneNumber"`, {
+      type: QueryTypes.UPDATE,
+      plain: true
+    });
   }
 };

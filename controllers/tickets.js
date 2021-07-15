@@ -30,6 +30,7 @@ module.exports = {
   GET_CINEMA_BOOKING: asyncHandler(async (req, res) => {
     const { cineplexId, movieId } = req.body;
     const cinemas = await Showtime.findAllByCineplex(cineplexId, movieId);
+    // console.log(cinemas);
     res.status(200).json({
       cinemas
     });
@@ -45,7 +46,7 @@ module.exports = {
   GET_SELECTED_SEAT_FARE: asyncHandler(async (req, res) => {
     const { movieId, cinemaId, showAt } = req.query;
     const selected = await Ticket.findAllSelectedSeatByCinemaAndMovie(movieId, cinemaId, showAt);
-    const ticket = await Ticket.getFare(movieId,cinemaId, showAt);
+    const ticket = await Ticket.getFare(movieId, cinemaId, showAt);
     res.status(200).json({
       status: 'sucesss',
       selected,

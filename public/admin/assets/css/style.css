@@ -15704,7 +15704,8 @@ code {
 
 .img-xs {
   width: 35px;
-  height: 35px; }
+  height: 35px;
+  background-color: #fff; }
 
 .img-ss {
   width: 26px;

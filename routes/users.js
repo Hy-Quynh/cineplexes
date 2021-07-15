@@ -20,6 +20,8 @@ router.get('/reset-password/:access_token', usersController.GET_RESET_PASSWORD);
 router.post('/reset-password', usersController.RESET_PASSWORD);
 // Profile
 router.get('/profile', usersController.PROFILE);
+router.post('/profile/edit', usersController.EDIT_PROFILE);
+router.post('/profile/change-password', usersController.CHANGE_PASSWORD);
 router.get('/profile/history', usersController.PAGING_BOOK_TICKET_PROFILE);
 // sIGN OUT
 router.get('/sign-out', usersController.SIGN_OUT);

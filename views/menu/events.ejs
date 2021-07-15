@@ -83,20 +83,22 @@
                       <div class="cast-item-profile">
                         <div class="cast-thumb-profile">
                           <a href="/user/profile">
-                            <img src="../../../../assets/images/cast/cast05.jpg" alt="cast">
+                            <i class="fas fa-user"></i>
+                            <!-- <img src="../../assets/images/cast/cast05.jpg" alt="cast"> -->
                           </a>
                         </div>
                       </div>
                       <ul class="submenu">
                         <li>
-                          <a href="#"><i class="fas fa-user" style="padding-bottom: 5px;"><span><%= currentUser.fullName %></span></i></a>
+                          <h6 class="name"><span><%= currentUser.fullName %></span></h6>
                         </li>
+                        <hr>
                         <li>
-                          <a href="#"><i class="fas fa-envelope-square" style="padding-bottom: 5px;" ><span><%= currentUser.email %></span></i></a>
+                          <a href="/user/profile"><i class="fas fa-user-cog"><span>Manage your Account</span></i></a>
                         </li>
-                        <li>
+                        <!-- <li>
                           <a href="#"><i class="fas fa-mobile" style="padding-bottom: 5px;" ><span><%= currentUser.phoneNumber %></span></i></a>
-                        </li>
+                        </li> -->
                         <hr>
                         <li>
                           <a href="/user/sign-out"><i class="fas fa-sign-out-alt" style="color:#f1481f;"><span>Sign out</span></i></a>

@@ -8,7 +8,7 @@ module.exports = {
     });
   },
   searchForShowtimeCineplex: async (keyword, cineplexId) => {
-    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", c."cinemaName" FROM movies m JOIN showtime st ON m."_movieID" = st."movieID" JOIN cinemas c ON c."_cinemaID" = st."cinemaID" WHERE "movieName" ILIKE '%${keyword}%' AND c."cineplexID" = ${cineplexId} AND ("startTime"::TIMESTAMP < NOW()::TIMESTAMP AND "endTime"::TIMESTAMP > NOW()::TIMESTAMP) AND m.status = TRUE AND c.status = TRUE ORDER BY DATE(st."startTime") DESC`,{
+    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", c."cinemaName" FROM movies m JOIN showtime st ON m."_movieID" = st."movieID" JOIN cinemas c ON c."_cinemaID" = st."cinemaID" WHERE "movieName" ILIKE '%${keyword}%' AND c."cineplexID" = ${cineplexId} AND ("startTime"::TIMESTAMP <= NOW()::TIMESTAMP AND "endTime"::TIMESTAMP >= NOW()::TIMESTAMP) AND m.status = TRUE AND c.status = TRUE ORDER BY DATE(st."startTime") DESC`,{
       type: QueryTypes.SELECT
     });
   },
@@ -23,7 +23,7 @@ module.exports = {
     });
   },
   findAllCinemaNameMovie: async (movieId) => {
-    return db.query('SELECT c."cinemaName", st."cinemaID", c."cinemaType" FROM showtime  st LEFT JOIN cinemas c ON c."_cinemaID" = st."cinemaID" WHERE st."movieID" = :Id AND st.status = TRUE', {
+    return db.query('SELECT c."cinemaName", st."cinemaID", c."cinemaType" FROM showtime  st LEFT JOIN cinemas c ON c."_cinemaID" = st."cinemaID" WHERE st."movieID" = :Id AND st.status = TRUE AND c.status = TRUE', {
       type: QueryTypes.SELECT,
       replacements: {
         Id: movieId
@@ -31,11 +31,11 @@ module.exports = {
     });
   },
   findAllByCineplex: async (cineplexId, movieId) => {
-    return db.query('SELECT c."_cinemaID", c."cinemaName", st."showAt" FROM showtime st JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE c."cineplexID" = :cpId AND st."movieID" = :mId AND st.status = TRUE', {
+    return db.query(`SELECT c."_cinemaID", c."cinemaName", st."showAt" FROM showtime st JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE c."cineplexID" = :cineplex_id AND st."movieID" = :movie_id AND (st."startTime"::TIMESTAMP <= NOW()::TIMESTAMP AND st."endTime"::TIMESTAMP >= NOW()::TIMESTAMP) AND (st.status = TRUE AND c.status = TRUE)`, {
       type: QueryTypes.SELECT,
       replacements: {
-        cpId: cineplexId,
-        mId: movieId
+        cineplex_id: cineplexId,
+        movie_id: movieId
       }
     });
   },

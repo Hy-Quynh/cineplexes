@@ -764,7 +764,7 @@ input[type="submit"] {
   position: relative;
 }
 
-.section-header-1::before, .footer-section::before, .banner-section::before, .speaker-banner::before, .widget-1.widget-check .add-check-area a i::after, .widget-1.widget-check .add-check-area a i::before, .widget-1.widget-check .form-group label::before, .side-shape::after, .side-shape::before, .newslater-container::after, .search-tab .tab-area::before, .movie-details .summery-review .tab-menu li::after, .movie-details .summery-review .tab-menu li::before, .screen::after, .screen::before, .screen-area .subtitle::after, .screen-area .subtitle::before, .checkout-widget .payment-option li.active a::after, .checkout-widget .payment-option li.active a::before, .checkout-widget.checkout-card .payment-card-form .form-group.check-group label::after, .checkout-widget.checkout-card .payment-card-form .form-group.check-group label::before, .event-about-thumb::after, .event-about-thumb::before, .statistics-section::after, .ticket--item .ticket-content ul li::before, .apps-wrapper .apps-bg, .counter--area .counter-item::after, .counter--area .counter-item::before, .account-area .account-form .form-group.checkgroup input::after, .account-area .or span::after, .account-area .or span::before, .contact-container .bg-thumb, .post-item.post-details .post-content .content .post-header blockquote::before {
+.section-header-1::before, .footer-section::before, .banner-section::before, .speaker-banner::before, .widget-1.widget-check .add-check-area a i::after, .widget-1.widget-check .add-check-area a i::before, .widget-1.widget-check .form-group label::before, .side-shape::after, .side-shape::before, .newslater-container::after, .search-tab .tab-area::before, .movie-details .summery-review .tab-menu li::after, .movie-details .summery-review .tab-menu li::before, .screen::after, .screen::before, .screen-area .subtitle::after, .screen-area .subtitle::before, .screen-area .ticketbox-notice::after, .screen-area .ticketbox-notice::before, .checkout-widget .payment-option li.active a::after, .checkout-widget .payment-option li.active a::before, .checkout-widget.checkout-card .payment-card-form .form-group.check-group label::after, .checkout-widget.checkout-card .payment-card-form .form-group.check-group label::before, .event-about-thumb::after, .event-about-thumb::before, .statistics-section::after, .ticket--item .ticket-content ul li::before, .apps-wrapper .apps-bg, .counter--area .counter-item::after, .counter--area .counter-item::before, .account-area .account-form .form-group.checkgroup input::after, .account-area .or span::after, .account-area .or span::before, .contact-container .bg-thumb, .post-item.post-details .post-content .content .post-header blockquote::before {
   position: absolute;
   content: '';
 }
@@ -1347,8 +1347,8 @@ input[type="submit"] {
     text-align: center;
   }
   .header-wrapper .menu .profile .cast-item-profile .cast-thumb-profile a {
-    width: 48px;
-    height: 48px;
+    /* width: 48px;
+    height: 48px; */
     border-radius: 50%;
     border: 1px solid rgba(49, 215, 169, 0.5);
     margin: 0 auto;
@@ -1361,6 +1361,15 @@ input[type="submit"] {
     border-radius: 50%;
     border: 4px solid #31d7a9;
   }
+
+  .header-wrapper .menu .profile .cast-item-profile .cast-thumb-profile i {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 7px;
+    border: 4px solid #31d7a9;
+  }
+
   .header-wrapper .menu .profile .submenu li a span {
     display: inline-block;
     font-family: "Times New Roman", Times, serif;
@@ -1370,6 +1379,20 @@ input[type="submit"] {
     overflow: hidden !important;
     text-overflow: ellipsis;
   }
+  .header-wrapper .menu .profile .submenu li .name {
+    color: #292929;
+    font-family: "Times New Roman", Times, serif;
+    padding-left: 8px;
+    text-align: center;
+  }
+  .header-wrapper .menu .profile .submenu li .name span {
+    display: inline-block;
+    width: 185px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+  }
+
   /*ket */
 
   .header-wrapper .menu li a {
@@ -4626,6 +4649,62 @@ input[type="submit"] {
   }
 }
 
+/* ticketbox-notice */
+
+.screen-area .ticketbox-notice {
+  margin: 0 auto 30px;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  text-align: center;
+  max-width: 650px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px;
+  /* color: #31d7a9; */
+}
+
+.screen-area .ticketbox-notice::after, .screen-area .ticketbox-notice::before {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  height: 1px;
+  background: #213a69;
+}
+
+.screen-area .ticketbox-notice::after {
+  width: 100%;
+  bottom: 0;
+}
+
+.screen-area .ticketbox-notice::before {
+  width: 80%;
+  top: 0;
+}
+
+@media (min-width: 576px) {
+  .screen-area .ticketbox-notice {
+    margin-bottom: 25px;
+  }
+}
+
+.screen-area .ticketbox-notice .tab-item {
+   display: inline-block;
+   margin-right: 20px;
+}
+.screen-area .ticketbox-notice .tab-item img {
+  border-style: none;
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+}
+
+.screen-area .ticketbox-notice .tab-item span {
+  text-transform: none;
+
+}
+/* ticketbox-notice  */
+
 .seat-area {
   margin-bottom: 25px;
   margin-top: -5px;
@@ -6567,7 +6646,7 @@ input[type="submit"] {
 }
 
 .speaker-wrapper .speaker-content {
-  width: calc(100% - 255px);
+  width: calc(100% - 30px);
   padding-left: 40px;
 }
 
@@ -6731,9 +6810,12 @@ input[type="submit"] {
 .speak-con-area .item .item-thumb img {
   max-width: 100%;
 }
+.speak-con-area .item .item-thumb i {
+  /* max-width: 100%; */
+}
 
 .speak-con-area .item .item-content {
-  width: calc(100% - 42px);
+  /* width: calc(100% - 42px); */
   padding-left: 13px;
 }
 
@@ -6748,8 +6830,32 @@ input[type="submit"] {
   color: #31d7a9;
 }
 
+.speak-con-area .item .item-content input {
+  color: #31d7a9;
+  height: 25px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #9eb1eb;
+}
+
 .speak-con-area .item .item-content .up {
   margin-bottom: 2px;
+}
+
+.speak-con-area .item .item-icon {
+  margin-left: 8px;
+}
+
+.speak-con-area .item .item-icon button{
+  width: 30px;
+  height: 24px;
+  display: block;
+  margin-top: 21px;
+  border: none;
+  background-color: transparent;
+}
+.speak-con-area .item .item-icon button:focus {
+  outline: 0 !important;
 }
 
 @media (max-width: 991px) {
@@ -9581,6 +9687,98 @@ aside {
     animation-duration: .3s
 }
 
+/*Messege box*/
+.window-warning {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.window-warning {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow-y: scroll;
+  padding: 30px 15px;
+  z-index: 9999;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+}
+
+.window-warning .lay {
+  position: fixed;
+  /* background: rgba(10, 30, 94, 0.9); */
+  background: rgba(0, 0, 0, 0.44);
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+.window-warning .warning-item {
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
+  background: #fff;
+  /* background: rgba(10, 30, 94, 0.9); */
+  width: 100%;
+  max-width: 450px;
+  padding: 50px 15px;
+  text-align: center;
+}
+
+@media screen and (max-width: 399px) {
+  .window-warning .warning-item {
+    padding: 40px 15px;
+  }
+}
+
+.window-warning .warning-item .subtitle {
+  color: #4a5568;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Rubik", sans-serif;
+  margin-bottom: 32px;
+}
+
+.window-warning .warning-item .password-form {
+  display: inline-block;
+}
+
+.window-warning .warning-item .password-form input {
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0;
+  padding: 0;
+  height: 45px;
+  padding-right: 50px;
+  margin-bottom: 20px;
+  color: #4a5568;
+}
+
+.window-warning .warning-item .password-form input:focus {
+  color: #4a5568;
+}
+
+.window-warning::-webkit-scrollbar {
+  display: none;
+}
+
+.window-warning.inActive {
+  visibility: hidden;
+  opacity: 0;
+  z-index: -99;
+}
+/*Messege box*/
 
 
 /* #toast_1 {
