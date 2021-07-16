@@ -63,7 +63,7 @@ module.exports = {
     });
   },
   getMovieName: async () => {
-    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE status = TRUE ORDER BY "createdAt"`, {
+    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) < 0) AND status = TRUE ORDER BY "createdAt"`, {
       type: QueryTypes.SELECT
     });
   },

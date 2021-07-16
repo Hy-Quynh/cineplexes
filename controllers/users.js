@@ -118,7 +118,6 @@ module.exports = {
     console.log(skip);
     const historyTicket = await User.historyTicketOfUser(userID, skip, limit);
     res.render('user/profile', { historyTicket, totalPages, limit});
-    // Math.floor
   }),
   CHANGE_PASSWORD: asyncHandler(async (req, res) => {
     const { userID } = req.session;

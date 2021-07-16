@@ -1,9 +1,35 @@
 (function ($) {
     "use strict";
+
+    $(document).ready(function() {
+      const currentPage = getUrlParameter('page');
+      const total_page = $('.paging').text().length;
+      $('.paging').each(function( index ) {
+        if($(this).text() == currentPage) this.setAttribute('class', 'active');
+      });
+    });
+    $('.prev').on('click', function () {
+      const currentPage = getUrlParameter('page');
+      const limit = $('.pagination-area').data('limit');
+      if(currentPage > 1){
+        const page = currentPage - 1;
+        location.href = `/user/profile/history?page=${page}&limit=${limit}`
+      }
+    });
+    $('.next').on('click', function () {
+      const currentPage = getUrlParameter('page');
+      const limit = $('.pagination-area').data('limit');
+      const totalPage = $('.pagination-area').data('total');
+      if(currentPage < totalPage){
+        const page = Number(currentPage) + 1;
+        location.href = `/user/profile/history?page=${page}&limit=${limit}`
+      }
+    });
+
     $(document).on('click', '.paging', function() {
       const page = this.getAttribute('data-page');
       const limit = this.getAttribute('data-limit');
-      this.setAttribute('class', 'active');
+      // this.setAttribute('class', 'active');
       this.setAttribute('href',`/user/profile/history?page=${page}&limit=${limit}`);
     });
 
@@ -110,7 +136,7 @@
     });
 
     $('.window-warning .warning-item .password-form .custom-button').on('click', function (e) {
-      e.preventDefault(); 
+      e.preventDefault();
       const password = $('.password-form #password').val();
       if(password && password != '') {
         $.ajax({
@@ -259,3 +285,19 @@
     }
 
 }(jQuery));
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
