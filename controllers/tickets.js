@@ -13,10 +13,11 @@ module.exports = {
     const { movieId } = req.params;
     const bookingMovie = await Movies.findByIdBooking(movieId);
     const cineplexes = await Cineplex.findAllCineplexOfShowtime(movieId);
+    if(cineplexes.length == 0 || !cineplexes) return res.render('tickets/booking', { message: 'No showtimes at the moment', bookingMovie, cineplexes });
     res.render('tickets/booking', {
       bookingMovie,
       cineplexes
-    })
+    });
   }),
   BOOKING_MOVIE: asyncHandler(async (req, res) => {
     const { movieId } = req.params;
@@ -30,7 +31,7 @@ module.exports = {
   GET_CINEMA_BOOKING: asyncHandler(async (req, res) => {
     const { cineplexId, movieId } = req.body;
     const cinemas = await Showtime.findAllByCineplex(cineplexId, movieId);
-    // console.log(cinemas);
+    if(cinemas.length == 0 || !cinemas ) return res.status(400).json({ message: 'There are currently no screenings at this cineplexes' });
     res.status(200).json({
       cinemas
     });

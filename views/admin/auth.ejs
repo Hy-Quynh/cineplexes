@@ -45,19 +45,20 @@
                         <span class="cate">hello</span>
                         <h2 class="title">welcome admin</h2>
                     </div>
-                    <form class="account-form" id="form-account" action="/user/admin/auth" method="post">
+                    <div class="message-role" id="validationRole"><span>This is not an admin account</span></div>
+                    <form class="account-form" id="form-account">
                         <div class="form-group">
-                            <label for="username2">Username<span>*</span></label>
-                            <input type="text" placeholder="Enter Your Username" id="username2" name="username" required>
+                            <label for="username">Username<span>*</span></label>
+                            <input type="text" placeholder="Enter Your Username" id="username" name="username" required>
                         </div>
-                        <div class="validation" id="validationEmail"><span></span></div>
+                        <div class="validation" id="validationUsername"><span></span></div>
                         <div class="form-group">
                             <label for="pass">Password<span>*</span></label>
                             <input type="password" placeholder="Password" id="pass" name="password" required>
                         </div>
                         <div class="validation" id="validationPassword"><span></span></div>
                         <div class="form-group text-center">
-                            <input type="submit" value="log in">
+                            <input type="submit" class="login" value="log in">
                         </div>
                     </form>
                     <div class="option">
@@ -83,7 +84,7 @@
     <script src="../../assets/js/viewport.jquery.js"></script>
     <script src="../../assets/js/nice-select.js"></script>
     <script src="../../assets/js/main.js"></script>
-    <!-- <script src="../../assets/js/sign-in.js"></script> -->
+    <script src="../../assets/js/admin-login.js"></script>
 </body>
 
 </html>

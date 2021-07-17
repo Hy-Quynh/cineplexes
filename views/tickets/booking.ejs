@@ -91,7 +91,11 @@
                     </select>
                 </div>
                 <div class="item">
-                    <h5 class="notification"></h5>
+                  <% if(typeof message != 'undefined') { %>
+                    <h8 class="notification"><%= message %></h8>
+                  <% } else {%>
+                    <h8 class="notification"></h8>
+                  <% } %>
                 </div>
             </div>
         </div>

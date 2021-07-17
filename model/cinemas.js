@@ -9,7 +9,7 @@ module.exports = {
     });
   },
   getAll: async () => {
-    return db.query('SELECT c."_cinemaID", c."cinemaName", c."cinemaType", c."horizontalSize", c."verticalSize", cnplx."cineplexName" FROM cinemas c LEFT JOIN cineplexes cnplx ON c."cineplexID" = cnplx."_cineplexID" WHERE c.status = TRUE', {
+    return db.query('SELECT c."_cinemaID", c."cinemaName", c."cinemaType", c."horizontalSize", c."verticalSize", cnplx."cineplexName" FROM cinemas c LEFT JOIN cineplexes cnplx ON c."cineplexID" = cnplx."_cineplexID" WHERE c.status = TRUE ORDER BY c."_cinemaID" DESC', {
       type: QueryTypes.SELECT,
     });
   },

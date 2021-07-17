@@ -34,13 +34,10 @@ module.exports = {
   }),
   SIGNIN: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    // if(!email) return res.render('user/sign-in',{ emailError: 'Email is required' });
-    // if(!password) return res.render('user/sign-in',{ passwordError: 'Email is required' });
     const found = await User.findByEmail(email);
     if(!found) return res.status(400).json({ emailError: 'Email does not exist' });
     const isMatch = await bcrypt.compareSync(password, found.password);
     if(!isMatch) return res.status(400).json({ passwordError: 'Incorrect password' });
-    // const info = await User.info(found._userID);
     req.session.userID = found._userID;
     res.send({status: 'success'});
   }),
@@ -51,7 +48,6 @@ module.exports = {
     const { name, email, phoneNumber, password } = req.body;
     const doseExists = await User.findByEmail(email);
     if(doseExists) return res.status(400).json({ emailError: 'Email already exists' });
-    // if(password !== repassword) return res.status(400).json({ passwordError: 'Password and confirm password do not match' });
     const hash = bcrypt.hashSync(password, 10);
     const newUser = { name, email, phoneNumber, password: hash };
     const host = req.protocol + '://' + req.get('host');
@@ -66,13 +62,13 @@ module.exports = {
   LOGIN_ADMIN: asyncHandler(async (req, res) => {
     const { username, password} = req.body;
     const found = await User.findByEmail(username);
-    if(!found) return res.status(400).json({ emailError: 'Username does not exist' });
+    if(!found) return res.status(400).json({ usernameError: 'Username does not exist' });
     const isMatch = await bcrypt.compareSync(password, found.password);
     if(!isMatch) return res.status(400).json({ passwordError: 'Incorrect password' });
-    if(found.roleID !== 1) return res.status(400).json({ emailError: 'This is not an admin account' });
+    if(found.roleID != 1) return res.status(400).json({ roleError: 'This is not an admin account' });
     // const info = await User.info(found._userID);
     req.session.userID = found._userID;
-    res.redirect('/admin/dashboard');
+    res.status(200).json({ status: 'success' });
   }),
   ACTIVE_EMAIL: asyncHandler(async (req, res) => {
     const { accessToken } = req.params;
@@ -85,8 +81,6 @@ module.exports = {
     const { userID } = req.session;
     const skip = 1;
     const limit = 10;
-    // const index = (page - 1) * limit;
-    // const end = page * limit;
     const item = await User.totalItemTicketOfUser(userID);
     const totalPages = Math.floor(item.total / limit) + ((Math.floor(item.total / limit) == 0) ? 0 : 1);
     const historyTicket = await User.historyTicketOfUser(userID, skip, limit);

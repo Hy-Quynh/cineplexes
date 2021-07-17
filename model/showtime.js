@@ -3,7 +3,7 @@ const db = require('./connect');
 
 module.exports = {
   getAll: async () => {
-    return db.query(`SELECT st."movieID", st."cinemaID", c."cinemaName", m."movieName",to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", st.fare, st."showAt" FROM showtime st JOIN movies m ON st."movieID" = m."_movieID" JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE st.status = TRUE AND m.status = TRUE`, {
+    return db.query(`SELECT st."movieID", st."cinemaID", c."cinemaName", m."movieName",to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime", st.fare, st."showAt" FROM showtime st JOIN movies m ON st."movieID" = m."_movieID" JOIN cinemas c ON st."cinemaID" = c."_cinemaID" WHERE st.status = TRUE AND m.status = TRUE ORDER BY "startTime"::TIMESTAMP DESC`, {
       type: QueryTypes.SELECT
     });
   },

@@ -4,7 +4,7 @@ const Booking = require('./booking');
 
 module.exports = {
   getAll: async () => {
-    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, m.introduction, m."language" FROM movies m WHERE m.status = TRUE`,{ type: QueryTypes.SELECT });
+    return db.query(`SELECT m."_movieID", m."movieName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster, to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, m.introduction, m."language" FROM movies m WHERE m.status = TRUE ORDER BY m."createdAt"::TIMESTAMP DESC`,{ type: QueryTypes.SELECT });
   },
   moviesRevenue: async (start, end) => {
     return db.query(`SELECT m."movieName", SUM(t.price) as "totalPrice", COUNT(t."_ticketID") as "totalTickets" FROM movies m LEFT JOIN booking b ON m."_movieID" = b."movieID" LEFT JOIN ticket t ON t."bookingID" = b."_bookingID" WHERE m.status = TRUE AND (b."createAt" >= '${start}' AND b."createAt" <= '${end}') GROUP BY m."_movieID"`,{ type: QueryTypes.SELECT });
@@ -63,7 +63,7 @@ module.exports = {
     });
   },
   getMovieName: async () => {
-    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) < 0) AND status = TRUE ORDER BY "createdAt"`, {
+    return db.query(`SELECT "_movieID", "movieName" FROM movies  WHERE (DATE_PART('DAY', "openingDay"::timestamp - NOW()::timestamp) < 0) AND status = TRUE ORDER BY "createdAt"::TIMESTAMP DESC`, {
       type: QueryTypes.SELECT
     });
   },

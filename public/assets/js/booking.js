@@ -32,7 +32,7 @@
                     </li>`);
                 });
 
-                CreateToast('information', 'Success!', 'Please select cinema below');
+                CreateToast('information', 'Choose a movie showtime', 'Please select cinema below');
                 var thisToastSelect = toastCounter - 1;
                 $(document).find("#toast_"+thisToastSelect).slideDown(600);
                 setTimeout(function(){
@@ -52,11 +52,23 @@
                 },3000);  // 3sec.
               }
             },
-            error: function (res) { }
+            error: function (res) {
+              if(res.responseJSON){
+                document.body.appendChild(div);
+                CreateToast('error', 'Choose a movie showtime', `${res.responseJSON.message}`);
+                var thisToastSelect = toastCounter - 1;
+                $(document).find("#toast_"+thisToastSelect).slideDown(600);
+                setTimeout(function(){
+                  $(document).find("#toast_"+thisToastSelect).slideUp(600,function(){
+                    $(this).remove();
+                  });
+                },3000);  // 3sec.
+              }
+            }
           });
         }
         else{
-          CreateToast('error', 'Error!', 'Please select cineplex.');
+          CreateToast('error', 'Choose a movie showtime', 'Please select cineplex.');
           var thisToastSelect = toastCounter - 1;
           $(document).find("#toast_"+thisToastSelect).slideDown(600);
           setTimeout(function(){

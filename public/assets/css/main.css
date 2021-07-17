@@ -7761,11 +7761,25 @@ input[type="submit"] {
 
 .account-area .account-form .validation{
   display: none;
+  padding: 4px;
 }
 .account-area .account-form .validation.error{
   display: block;
   color: #f1481f;
+  padding: 2px;
   margin: -20px 0 15px 0;
+}
+.account-area .message-role {
+  display: none;
+  padding: 5px;
+}
+.account-area .message-role.error{
+  display: block;
+  color: #f1481f;
+  font-size: 21px;
+  margin: -20px 0 15px 0;
+  padding: 5px;
+  text-align: center;
 }
 
 .account-area .validSuccess{

@@ -3,7 +3,7 @@ const db = require('./connect');
 
 module.exports = {
   getAll: async () => {
-    return db.query('SELECT * FROM cineplexes WHERE status = TRUE', {
+    return db.query('SELECT * FROM cineplexes WHERE status = TRUE ORDER BY "_cineplexID" DESC', {
       type: QueryTypes.SELECT
     });
   },
@@ -18,7 +18,7 @@ module.exports = {
     });
   },
   findAllCineplexOfShowtime: async (movieId) => {
-    return db.query(`SELECT DISTINCT cipx.* FROM showtime  st JOIN cinemas c ON c."_cinemaID" = st."cinemaID" JOIN movies m ON m."_movieID" = st."movieID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" WHERE st."movieID" = ${movieId}`, {
+    return db.query(`SELECT DISTINCT cipx.* FROM showtime st JOIN cinemas c ON c."_cinemaID" = st."cinemaID" JOIN movies m ON m."_movieID" = st."movieID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" WHERE st."movieID" = ${movieId} AND (st."startTime"::TIMESTAMP < NOW()::TIMESTAMP AND st."endTime"::TIMESTAMP > NOW()::TIMESTAMP) AND (cipx.status = TRUE AND st.status = TRUE AND c.status = TRUE)`, {
       type: QueryTypes.SELECT
     });
   },
