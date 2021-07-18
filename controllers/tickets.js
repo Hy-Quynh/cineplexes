@@ -32,6 +32,8 @@ module.exports = {
     const { cineplexId, movieId } = req.body;
     const cinemas = await Showtime.findAllByCineplex(cineplexId, movieId);
     if(cinemas.length == 0 || !cinemas ) return res.status(400).json({ message: 'There are currently no screenings at this cineplexes' });
+    // const timestamp = await Showtime.selectTimestamp();
+    // console.log(timestamp);
     res.status(200).json({
       cinemas
     });

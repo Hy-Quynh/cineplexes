@@ -13,7 +13,7 @@ module.exports = {
     });
   },
   searchForShowtimeCinema: async (keyword) => {
-    return db.query(`SELECT m."movieName", c."cinemaName", cipx."cineplexName", to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime" FROM cinemas c JOIN showtime st ON st."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN movies m ON m."_movieID" = st."movieID" WHERE c."cinemaName" ILIKE '%${keyword}%' AND ("startTime"::TIMESTAMP < NOW()::TIMESTAMP AND "endTime"::TIMESTAMP > NOW()::TIMESTAMP) AND st.status = TRUE AND c.status = TRUE and cipx.status = TRUE AND m.status = TRUE ORDER BY DATE(st."startTime") DESC`, {
+    return db.query(`SELECT m."_movieID", m."movieName", c."cinemaName", cipx."cineplexName", 'data:image/gif;base64,' || encode(m."moviePoster", 'base64') AS poster,to_char(m."openingDay", 'DD/MM/YYYY') as "openingDay", m."runningTime", m.trailer, m.genre, to_char(st."startTime", 'DD/MM/YYYY HH24:MI') as "startTime", to_char(st."endTime", 'DD/MM/YYYY HH24:MI') as "endTime" FROM cinemas c JOIN showtime st ON st."cinemaID" = c."_cinemaID" JOIN cineplexes cipx ON c."cineplexID" = cipx."_cineplexID" JOIN movies m ON m."_movieID" = st."movieID" WHERE c."cinemaName" ILIKE '%${keyword}%' AND ("startTime"::TIMESTAMP < NOW()::TIMESTAMP AND "endTime"::TIMESTAMP > NOW()::TIMESTAMP) AND st.status = TRUE AND c.status = TRUE and cipx.status = TRUE AND m.status = TRUE ORDER BY DATE(st."startTime") DESC`, {
       type: QueryTypes.SELECT
     });
   },
