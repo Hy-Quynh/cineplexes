@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(Logged.ensureLoggedInAdmin);
 
 
-Home
+//Home
 router.get('/dashboard', adminController.HOME);
 router.post('/cineplexes-revenue', adminController.CINEPLEXES_REVENUE);
 router.post('/movies-revenue', adminController.MOVIES_REVENUE);
@@ -38,7 +38,7 @@ router.get('/cinema-by-cineplex', adminController.GET_CINEMA_BY_CINEPLEX);
 
 
 
-Logout
+//Logout
 router.get('/logout', adminController.LOGOUT);
 module.exports = router;
 
