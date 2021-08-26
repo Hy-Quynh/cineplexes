@@ -36,9 +36,11 @@ app.use(authMiddleware);
 // app.use(expressLayouts);
 
 app.use('/', homeRouter);
+
 app.use('/movies', moviesRouter);
 app.use('/user', usersRouter);
 app.use('/ticket', ticketsRouter);
+
 app.use('/admin', adminRouter);
 
 db.sync().then(function (){
