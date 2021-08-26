@@ -7,7 +7,7 @@ Một web ứng dụng mô phỏng hệ thống đặt đặt vé xem phim onlin
 - Xem lại các danh sách các đặt vé trong lịch sử (ngày/giờ, phim, rạp/cụm rạp, ghế)
 - Đặt vé xem phim (chọn suất chiếu, chọn ghế, xác nhận)
 ## Setup
-<b>Role điều kiện</b><br>
+### Role điều kiện
 Tải xuống Node.js và npm tại đây: https://nodejs.org/en/
 <br>
 ### Install
