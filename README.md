@@ -23,7 +23,7 @@ Tải xuống Node.js và npm tại đây: https://nodejs.org/en/
       PASSWORD_EMAIL=xxxxxxx<font></font>
     </code>
   </pre>
-3. DB_URI is connect string to MongoDB server: <code>postgres://postgres:postgres@localhost:5432/MyMovies</code> 
+3. DB_URI is connect string to Postresql server: <code>postgres://postgres:postgres@localhost:5432/MyMovies</code> 
 4. <code>npm start</code>
 5. Truy cập http: // localhost: 3000 để xem các ứng dụng của bạn.
 ## Build
